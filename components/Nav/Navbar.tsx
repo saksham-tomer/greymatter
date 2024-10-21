@@ -1,114 +1,121 @@
 "use client";
-
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-const SideNav = ({ isOpen }: { isOpen: boolean }) => {
-  const nav = {
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
-    },
-    hidden: {
-      x: "-100%",
-      opacity: 0,
-      transition: {
-        when: "afterChildren",
-      },
-    },
-  };
-  const item = {
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -100 },
-  };
+const NavLink = ({ href, children }) => (
+  <a
+    href={href}
+    className="text-neutral-400 hover:text-white transition-colors duration-300"
+  >
+    {children}
+  </a>
+);
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed right-0 top-0 bottom-0 w-full bg-black/20 backdrop-blur-xl  pt-24"
-          variants={nav}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-        >
-          <motion.ul className="flex flex-col  text-white">
-            {["Home", "Dashboard", "Portfolio", "About"].map((text, index) => (
-              <motion.li
-                key={text}
-                variants={item}
-                className="cursor-pointer text-2xl hover:text-gray-300 w-full py-6 px-6 border-b border-gray-200/50 hover:backdrop-blur-3xl hover:bg-blue-600/30 "
-              >
-                {text}
-              </motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
+const Navbar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-function Navbar({ children }: { children: React.ReactNode }) {
-  const [sideNav, setSideNav] = useState<boolean>(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  const navItems = [
+    { name: "Home", href: "#" },
+    { name: "Technology", href: "#" },
+    { name: "Features", href: "#" },
+    { name: "Pricing", href: "#" },
+    { name: "FAQ", href: "#" },
+  ];
 
   return (
-    <>
-      <div className="fixed w-full md:py-6 z-10 bg-gray-900/30 backdrop-blur-lg px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <h1 className="font-semibold text-white">Grey Matter</h1>
-            <Image src="/placeholder.png" alt="Logo" width={20} height={20} />
+    <nav className="bg-neutral-900 text-white border-b border-neutral-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <a href="#" className="flex-shrink-0 flex items-center">
+              <div className="w-6 h-6 bg-white flex items-center justify-center">
+                <div className="w-4 h-4 bg-neutral-900"></div>
+              </div>
+              <span className="ml-2 text-xl font-semibold">GreyMatter.</span>
+            </a>
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {navItems.map((item) => (
+                <NavLink key={item.name} href={item.href}>
+                  {item.name}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+          <div className="hidden md:block">
             <motion.button
-              whileHover={{
-                scale: 1.2,
-                color: "#1d4ed8",
-                transition: {
-                  type: "spring",
-                },
-              }}
-              whileTap={{
-                borderRadius: "50%",
-                scale: 1.2,
-                transition: {
-                  type: "spring",
-                  delay: 0.2,
-                  bounce: 1.5,
-                },
-              }}
-              className="px-4 py-2 rounded-3xl text-white text-sm font-medium flex items-center justify-center text-center bg-blue-600"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
             >
-              Dashboard
+              Create Account
             </motion.button>
-            <motion.button
-              onClick={() => setSideNav((prev) => !prev)}
-              className="md:hidden flex flex-col space-y-2 p-2 items-end"
-              whileTap={{ scale: 0.97 }}
+          </div>
+          <div className="md:hidden">
+            <button
+              onClick={toggleSidebar}
+              className="inline-flex items-center justify-center p-2 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
-              <motion.div
-                className={`w-7 h-[0.08rem] bg-white`}
-                animate={{ rotate: sideNav ? 45 : 0, y: sideNav ? 5 : 0 }}
-              />
-
-              <motion.div
-                className={`w-4 ${sideNav && "w-7"} h-[0.08rem] bg-white`}
-                animate={{ rotate: sideNav ? -45 : 0, y: sideNav ? -6 : 0 }}
-              />
-            </motion.button>
+              <span className="sr-only">Open main menu</span>
+              {isSidebarOpen ? (
+                <FaTimes className="h-6 w-6" />
+              ) : (
+                <FaBars className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
       </div>
-      <SideNav isOpen={sideNav} />
-      <div className="pt-16">{children}</div>
-    </>
+
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="md:hidden fixed top-0 right-0 bottom-0 w-64 bg-neutral-800 z-50"
+          >
+            <div className="pt-5 pb-3 space-y-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block px-3 py-2 text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-700"
+                >
+                  {item.name}
+                </a>
+              ))}
+              <div className="px-3 pt-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
+                >
+                  Create Account
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {isSidebarOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={toggleSidebar}
+        />
+      )}
+    </nav>
   );
-}
+};
 
 export default Navbar;
