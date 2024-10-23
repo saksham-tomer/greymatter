@@ -9,7 +9,7 @@ const features = [
   {
     Icon: FileTextIcon,
     name: "Real-Time Analytics",
-    description: "We automatically save your files as you type.",
+    description: "Access live data to stay ahead. From tracking multi-chain portfolios to capturing market shifts, Grey Matter gives you the insights you need, when you need them",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
@@ -18,9 +18,9 @@ const features = [
     ),
   },
   {
-    Icon: Shield,
-    name: "Advanced Security",
-    description: "Get notified when something happens.",
+    Icon: Wallet,
+    name: "Backed by Wormhole",
+    description: "our platform employs multi-layer encryption to safeguard your assets across blockchains. Move funds securely without compromise. Ecosystem and Partnerships",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
@@ -29,20 +29,20 @@ const features = [
     ),
   },
   {
-    Icon: PersonIcon,
+    Icon: Wallet,
     name: "Ecosystem and Partnerships",
-    description: "Supports 100+ integrations and counting.",
+    description: "Our partnerships power a thriving DeFi ecosystem. We connect you to top-tier opportunities through innovative collaborations and strong community engagement. Multi-Currency Support.",
     href: "#",
     cta: "Learn more",
-    className: "col-span-3 lg:col-span-2",
+    className: "col-span-3 lg:col-span-2 ",
     background: (
-      <Image src={"/dem3.png"} alt="" width={1920} height={1080} className="" />
+      <Image src={"/dem3.png"} alt="" width={1980} height={100} className="" />
     ),
   },
   {
     Icon: Wallet,
-    name: "Multi-Token Support",
-    description: "Use the calendar to filter your files by date.",
+    name: "Multi-Currency Support",
+    description: "Seamlessly manage and trade assets across a broad spectrum of blockchains. Grey Matter, supports all major tokens, giving you complete flexibility in your DeFi operations.",
     className: "col-span-3 lg:col-span-1",
     href: "#",
     cta: "Learn more",

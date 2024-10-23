@@ -27,7 +27,7 @@ export default function RetroGrid({
             // "[background-image:linear-gradient(to_right,rgba(0,0,0,0.3)_1px,transparent_0),linear-gradient(to_bottom,rgba(0,0,0,0.3)_1px,transparent_0)]",
 
             // Dark styles
-            "[background-image:linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_0)]"
+            "[background-image:linear-gradient(to_right,rgba(255,0,100,0.9)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,0,100,0.9)_1px,transparent_0)]"
           )}
         />
       </div>

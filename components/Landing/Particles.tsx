@@ -20,8 +20,7 @@ export function ParticlesDemo() {
         Features of Grey Matter
       </span>
       <p className="text-base max-w-xl text-center  text-gray-400 font-medium mt-4 mb-12 ">
-        Our Platform combines advance security, real time analytics,and
-        user-friendly design to provide an unparalleled trading experience
+      Effortless, secure, and optimized — Grey Matter integrates cutting-edge security, real-time insights, and intuitive design to maximize your cross-chain trading experience.
       </p>
 
       <div className=" px-56">

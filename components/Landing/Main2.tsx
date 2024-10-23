@@ -26,12 +26,13 @@ function Main2() {
       <div className="min-h-full flex flex-col md:flex-row bg-gradient-to-b  pt-20 from-neutral-950 to-neutral-900 items-center justify-center min-w-full bg-">
         <div className="w-1/2 pl-4 md:pl-8 lg:pl-16 xl:pl-24 flex flex-col gap-4">
           <h1 className="text-4xl md:text-6xl text-transparent xl:text-8xl lg:text-7xl bg-clip-text bg-gradient-to-tr from-neutral-400 to-neutral-700">
-            All-in-One Web3 ALM Dashboard
+          No Rocket Science, Just Easy Yields
+ 
           </h1>
           <p className="text-wrap text-justify xl:text-lg max-w-3xl text-neutral-300 mt-4">
-            Our all in one platform provides a seamless solution for
-            comprehensive Web3 Assets & Liability Management empowering you to
-            optimize your financial operations in the decentralized economy.
+          Grey Matter aims to be a cross-chain heaven for yield farming enthusiasts. Find the best
+yield across chains, move your funds, invest, and track - all from one platform!
+
           </p>
           <button className="px-7 py-3 transition-colors duration-300  bg-white text-black rounded-3xl shadow-md hover:bg-neutral-300 mt-4 max-w-[14rem] font-semibold">
             Manage Your Position
