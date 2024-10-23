@@ -9,9 +9,8 @@ const FAQSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const faqItems = [
     {
-      title: "What is Webtrix?",
-      content:
-        "Webtrix is a blockchain platform designed to offer secure, transparent, and efficient solutions for decentralized finance (DeFi) applications. It enables users to participate in various blockchain activities, such as providing liquidity, staking, and trading, all within a seamless and user-friendly environment.",
+      title: "What is Grey Matter?",
+      content:"Grey Matter is a next-gen cross-chain yield aggregator, leveraging Wormhole to unlock the best yield opportunities in the DeFi space. Maximize your returns with the power of seamless cross-chain integration.",
     },
     {
       title: "How do I start using Webtrix?",
@@ -53,9 +52,9 @@ const FAQSection = () => {
 
             <div className="mb-8 lg:mb-12">
               <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6">
-                Confused or curious? Don&apos;t worry—we&apos;ve got you
-                covered. Our comprehensive FAQ section is here to provide clear,
-                straightforward answers to all your questions.
+              Need clarity? Our detailed FAQ section provides straightforward answers, whether you're a
+DeFi newcomer or a seasoned pro.
+
               </p>
               <button className="bg-white text-neutral-900 px-6 py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-gray-200 transition-colors">
                 Read More

@@ -39,11 +39,13 @@ const Footer = () => {
               <GlassmorphicCard>
                 <img src="/epic.png" alt="Webtrix" className="h-8 mb-6" />
                 <h2 className="text-2xl font-bold mb-4">
-                  Stay Ahead with Grey Matter Insights
+                Get Started with Grey Matter – Your Smart Yield Solution
+                Why limit your yield?
                 </h2>
                 <p className="mb-4 text-neutral-300 text-sm">
-                  Be the first to know about new features, upcoming events, and
-                  everything happening in the world of Webtrix.
+                Grey Matter bridges the gap to higher returns across the blockchain
+landscape. Get started now and optimize your DeFi strategies.
+
                 </p>
                 <form className="flex">
                   <input
