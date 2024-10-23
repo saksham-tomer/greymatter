@@ -38,18 +38,17 @@ export function InfiniteMovingCardsDemo() {
 
 const testimonials = [
   {
-    quote: "/epic.png",
+    quote: "/epic.svg",  },
+  {
+    quote: "/epic1.svg",
   },
   {
-    quote: "/epic.png",
+    quote: "/epic2.svg",
   },
   {
-    quote: "/epic.png",
+    quote: "/epic3.svg",
   },
   {
-    quote: "/epic.png",
-  },
-  {
-    quote: "/epic.png",
+    quote: "/epic4.svg",
   },
 ];

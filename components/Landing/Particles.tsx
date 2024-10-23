@@ -14,7 +14,8 @@ export function ParticlesDemo() {
   }, []);
 
   return (
-    <div className="relative pb-56 min-h-screen bg-gradient-to-b  pt-20 from-neutral-950 to-neutral-900 flex h-screen w-full flex-col items-center justify-center overflow-hidden  bg-background md:shadow-xl">
+    <>
+    <div className="relative pb-10 min-h-screen bg-gradient-to-b  pt-20 from-neutral-950 to-neutral-900 flex  w-full flex-col items-center justify-center overflow-hidden  bg-background md:shadow-xl">
       <span className="pointer-events-none mt-32  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
         Features of Grey Matter
       </span>
@@ -22,9 +23,10 @@ export function ParticlesDemo() {
         Our Platform combines advance security, real time analytics,and
         user-friendly design to provide an unparalleled trading experience
       </p>
-      <div className="max-w-5xl">
-        <BentoDemo />
-      </div>
+
+      <div className=" px-56">
+          <BentoDemo />
+        </div>
       <Particles
         className="absolute inset-0"
         quantity={100}
@@ -32,7 +34,11 @@ export function ParticlesDemo() {
         color={color}
         refresh
       />
-      <ScrollBasedVelocityDemo />
     </div>
+        
+        <div className="bg-gradient-to-b bg-background md:shadow-xl  py-10 from-neutral-950 to-neutral-900">      <ScrollBasedVelocityDemo />
+        </div>
+        </>
+  
   );
 }
