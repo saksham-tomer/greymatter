@@ -4,6 +4,7 @@ import { HeroHighlight, Highlight } from "../ui/hero-highlight";
 
 export function HeroTypo() {
   return (
+    <>
     <motion.h1
       initial={{
         opacity: 0,
@@ -20,9 +21,11 @@ export function HeroTypo() {
       className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-400 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
     >
       <h1 className="mb-2 mt-4">Get Best Yield Value From Best</h1>
-      <Highlight className="text-black dark:text-white">
-        Marketplaces Aggregated
-      </Highlight>
+     
     </motion.h1>
+     <Highlight className="text-black  dark:text-white">
+     Marketplaces Aggregated
+   </Highlight>
+   </>
   );
 }
