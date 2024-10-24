@@ -11,7 +11,7 @@ export async function HeroButton() {
       )}
     >
       <AnimatedShinyText className="inline-flex font-bold text-white items-center justify-center px-6 py-2 transition ease-out text-neutral-300 hover:duration-300 hover:text-neutral-400">
-        <span className=" text-3xl">✨ Get Best Prices</span>
+        <span className=" text-2xl">✨ Get Best Prices</span>
         <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
       </AnimatedShinyText>
     </div>

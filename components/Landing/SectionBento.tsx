@@ -1,5 +1,5 @@
 import { CalendarIcon, FileTextIcon, PersonIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon, Shield, Wallet } from "lucide-react";
+import { BellIcon, Book, Share2Icon, Shield, Wallet } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
@@ -18,25 +18,25 @@ const features = [
     ),
   },
   {
-    Icon: Wallet,
+    Icon: CalendarIcon,
     name: "Backed by Wormhole",
     description: "our platform employs multi-layer encryption to safeguard your assets across blockchains. Move funds securely without compromise. Ecosystem and Partnerships",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <Image src={"/dem2.png"} alt="" width={1920} height={1080} className="" />
+      <Image src={"/epic7.png"} alt="" width={1920} height={1080} className="" />
     ),
   },
   {
-    Icon: Wallet,
+    Icon: Shield,
     name: "Ecosystem and Partnerships",
     description: "Our partnerships power a thriving DeFi ecosystem. We connect you to top-tier opportunities through innovative collaborations and strong community engagement. Multi-Currency Support.",
     href: "#",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2 ",
     background: (
-      <Image src={"/dem3.png"} alt="" width={1980} height={100} className="" />
+      <Image src={"/epic6.png"} alt="" width={1900} height={1080} className="" />
     ),
   },
   {
@@ -47,7 +47,7 @@ const features = [
     href: "#",
     cta: "Learn more",
     background: (
-      <Image src={"/dem4.png"} alt="" width={1920} height={1080} className="" />
+      <Image src={"/dem4.png"} alt="" width={1920} height={1080} className=" " />
     ),
   },
 ];

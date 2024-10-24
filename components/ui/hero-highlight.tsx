@@ -59,6 +59,7 @@ export const HeroHighlight = ({
     </div>
   );
 };
+
 export const Highlight = ({
   children,
   className,
@@ -79,20 +80,13 @@ export const Highlight = ({
         ease: "linear",
         delay: 0.5,
       }}
-      whileHover={{
-        scale: 1.1, // makes the element "pop" on hover
-        transition: {
-          duration: 0.2,
-          ease: "easeOut",
-        },
-      }}
       style={{
         backgroundRepeat: "no-repeat",
         backgroundPosition: "left center",
         display: "inline",
       }}
       className={cn(
-        `relative inline-block text-wrap p-4 rounded-lg bg-white`,
+        `relative inline-block pb-1   px-1 rounded-lg bg-gradient-to-r  from-indigo-500 to-purple-500`,
         className
       )}
     >
