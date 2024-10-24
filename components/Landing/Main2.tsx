@@ -35,7 +35,7 @@ yield across chains, move your funds, invest, and track - all from one platform!
 
           </p>
           <button className="px-7 py-3 transition-colors duration-300  bg-white text-black rounded-3xl shadow-md hover:bg-neutral-300 mt-4 max-w-[14rem] font-semibold">
-            Manage Your Position
+          Get Started
           </button>
         </div>
         <div className="w-1/2">

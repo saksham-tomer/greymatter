@@ -27,13 +27,10 @@ export function HeroTypo() {
     <div className=" relative text-center">
 
     </div>
-
-
-
-     <Highlight className="text-white text-2xl tet-wrap w-[400px] mt-4 text-center   dark:text-white">
-     Unleashing the power of cross-chain yield aggregation through wormhole.
-
-   </Highlight>
+    <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-neutral-400 lg:text-4xl to-neutral-600 text-lg mt-6 md:text-3xl">Unleashing the power of cross-chain yield</p>
+   <Highlight className=" font-bold text-lg text-neutral-400 p-2 mt-2 md:text-3xl lg:text-4xl">
+   aggregation through wormhole.
+   </Highlight>  
    </>
   );
 }
