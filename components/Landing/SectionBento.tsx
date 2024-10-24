@@ -34,9 +34,9 @@ const features = [
     description: "Our partnerships power a thriving DeFi ecosystem. We connect you to top-tier opportunities through innovative collaborations and strong community engagement. Multi-Currency Support.",
     href: "#",
     cta: "Learn more",
-    className: "col-span-3 lg:col-span-2 ",
+    className: "col-span-3 text-wrap lg:col-span-2 ",
     background: (
-      <Image src={"/epic6.png"} alt="" width={1900} height={1080} className="" />
+      <Image src={"/epic6.png"} alt="" width={1000} height={190} className=" pb-20" />
     ),
   },
   {
