@@ -1,6 +1,7 @@
 "use client"
 import { Globe } from "lucide-react";
 import React from "react";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
     return (
@@ -37,7 +38,9 @@ export default function LoginForm() {
                 >
                     Submit
                 </button>
-                <div className="flex gap-3 hover:cursor-pointer">
+                <div  onClick={()=>{
+                    signIn()
+                }} className="flex gap-3 hover:cursor-pointer">
                     <Globe/>
                     <p>Login with google</p>
 
