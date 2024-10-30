@@ -35,10 +35,10 @@ const ChatPopup = () => {
           <div className="bg-neutral-800 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Grey Chat Support</h3>
             <div className="flex gap-2">
-              <button onClick={() =>  {setIsOpen(false); setIsMinimized(true)}} className="hover:text-blue-200">
+              <button onClick={() =>  {setIsOpen(false); setIsMinimized(true)}} className="hover:text-red-600">
                 <Minus className="w-5 h-5" />
               </button>
-              <button onClick={() => setIsOpen(false)} className="hover:text-blue-200">
+              <button onClick={() => setIsOpen(false)} className="hover:text-red-600">
                 <X className="w-5 h-5" />
               </button>
             </div>
