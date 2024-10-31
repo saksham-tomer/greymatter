@@ -1,6 +1,8 @@
 "use client"
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import { MessageCircle, X, Send, Minus } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 const ChatPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,12 +11,55 @@ const ChatPopup = () => {
   const [messages, setMessages] = useState([
     { id: 1, text: 'Hello! How can I help you today?', sender: 'bot' }
   ]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const chatContainerRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  // Auto-scroll effect
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages, isGenerating]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      setMessages([...messages, { id: Date.now(), text: message, sender: 'user' }]);
-      setMessage('');
+    if (!message.trim() || isGenerating) return;
+    
+    // Add user message
+    const userMessage = { id: Date.now(), text: message, sender: 'user' };
+    setMessages(prev => [...prev, userMessage]);
+    setMessage('');
+    setIsGenerating(true);
+
+    try {
+      const response = await axios({
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${
+          "AIzaSyAFbxx4LAR7KQaeCf0lJmiPd4nae2f60Nw"
+        }`,
+        method: "post",
+        data: {
+          contents: [{ parts: [{ text: message }] }],
+        },
+      });
+
+      const aiResponse = response["data"]["candidates"][0]["content"]["parts"][0]["text"];
+      const botMessage = { 
+        id: Date.now() + 1, 
+        text: aiResponse, 
+        sender: 'bot' 
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Error generating response:", error);
+      const errorMessage = { 
+        id: Date.now() + 1, 
+        text: "Sorry, something went wrong. Please try again.", 
+        sender: 'bot' 
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -35,17 +80,26 @@ const ChatPopup = () => {
           <div className="bg-neutral-800 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Grey Chat Support</h3>
             <div className="flex gap-2">
-              <button onClick={() =>  {setIsOpen(false); setIsMinimized(true)}} className="hover:text-red-600">
+              <button 
+                onClick={() =>  {setIsOpen(false); setIsMinimized(true)}} 
+                className="hover:text-red-600"
+              >
                 <Minus className="w-5 h-5" />
               </button>
-              <button onClick={() => setIsOpen(false)} className="hover:text-red-600">
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="hover:text-red-600"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           {/* Messages */}
-          <div className="p-4 h-96 overflow-y-auto flex flex-col gap-4">
+          <div 
+            ref={chatContainerRef}
+            className="p-4 h-96 overflow-y-auto flex flex-col gap-4"
+          >
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -55,24 +109,40 @@ const ChatPopup = () => {
                     : 'bg-gray-100 self-start'
                 }`}
               >
-                {msg.text}
+                <ReactMarkdown>{msg.text}</ReactMarkdown>
               </div>
             ))}
+            
+            {isGenerating && (
+              <div className="self-start bg-gray-100 p-3 rounded-lg animate-pulse">
+                Thinking...
+              </div>
+            )}
           </div>
 
           {/* Input */}
           <form onSubmit={handleSubmit} className="p-4 border-t">
             <div className="flex gap-2">
-              <input
-                type="text"
+              <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none"
+                rows={2}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e);
+                  }
+                }}
+                disabled={isGenerating}
               />
               <button
                 type="submit"
-                className="bg-neutral-800 text-white p-2 rounded-lg hover:bg-neutral-600"
+                className={`bg-neutral-800 text-white p-2 rounded-lg hover:bg-neutral-600 ${
+                  isGenerating ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={isGenerating}
               >
                 <Send className="w-5 h-5" />
               </button>
