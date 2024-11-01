@@ -1,52 +1,84 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
-import dotenv from 'dotenv';
-
-// Load environment variables
-process.env.GOOGLE_API_KEY = "AIzaSyAFbxx4LAR7KQaeCf0lJmiPd4nae2f60Nw";
+import { tool } from "@langchain/core/tools";
+import { z } from "zod";
 
 
-// Create Wormhole-specific Prompt Template
-const wormholePrompt = ChatPromptTemplate.fromTemplate(`
-   
-    only answer question about the wormhole blockchain in 30 words, any other unrelated question return an empty response!!!!
-`);
 
+// Create a more robust Wormhole-specific tool
+const wormholeTool = tool(
+  async (_) => {
+
+    return "The query..."    ;
+  },
+  {
+    name: "wormhole_analyzer",
+    description: "Analyzes and responds to Wormhole queries",
+    schema: z.object({
+      answer: z.string().optional().describe("the respone of the wormhole blockchain query from google search ")
+    })
+  }
+);
+
+// Utility function to calculate Wormhole relevance
 // Function to generate Wormhole-specific response
-export async function generateWormholeResponse(context, query) {
-    try {
-        // Initialize Gemini AI Model
-        const geminiLLM = new ChatGoogleGenerativeAI({
-            model: "gemini-pro",
-            temperature: 0.7,
-            maxOutputTokens: 300
-        });
 
-        // Create the chain
-        const chain = wormholePrompt.pipe(geminiLLM);
+// Main Wormhole response generation function
+export async function generateWormholeAIResponse(context: string, query: string) {
+  try {
+    // Initialize Gemini AI Model with Wormhole tool
+    const geminiLLM = new ChatGoogleGenerativeAI({
+      model: "gemini-pro",
+      maxOutputTokens: 400,
+      temperature:0.9
+    }).bindTools([wormholeTool]);
 
-        // Generate response
-        const response = await chain.invoke({
-            context: context,
-            query: query
-        });
+    // Create Wormhole-specific Prompt Template
+    const wormholePrompt = ChatPromptTemplate.fromTemplate(`
+      Strictly adhere to these rules:
+      -  answer questions about wormhole blockchain   
+      - answer should be less than 50 words
+      - any unrelated query dont give a response
+      - answer questions related to Defi 
+      - any query related to cross-chain aggregators
 
-        // Validate response
-        if (!response.content.trim()) {
-            throw new Error("Empty response generated");
-        }
+      Context: {context}
+      Query: {query}
+    `);
 
-        return response.content;
-    } catch (error) {
-        console.error(`Wormhole response generation error: ${error.message}`);
-        return "Unable to generate wormhole-specific response at this time.";
+    // Create the chain
+    const chain = wormholePrompt.pipe(geminiLLM);
+
+    // Generate response
+    const response = await chain.invoke({
+      context: context,
+      query: query
+    });
+
+    // Validate response
+    if (!response.content.trim()) {
+        return "Unable to generate Wormhole-specific response at this time"
     }
+
+    console.log(response.tool_calls);
+
+
+    return response.content;
+  } catch (error) {
+    console.error(`Wormhole AI response generation error:`, error);
+    return "Unable to generate Wormhole-specific response at this time.";
+  }
 }
 
-// Example Usage
-   export const context = `
-    `;
-    
+// Example usage
+async function main() {
+  const context = "Wormhole is a leading cross-chain communication protocol";
+  const query = "jkbkjbkjbkbhk";
 
-    // Generate and print response
+  const response = await generateWormholeAIResponse(context, query);
+  console.log("eedde")
+  console.log(response)
+}
 
+// Uncomment to run
+main();

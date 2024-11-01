@@ -1,9 +1,8 @@
 "use client"
 import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
 import { MessageCircle, X, Send, Minus } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { generateWormholeResponse,context } from '@/lib/model';
+import { generateWormholeAIResponse,context } from '@/lib/model';
 
 const ChatPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,21 +32,11 @@ const ChatPopup = () => {
     setIsGenerating(true);
 
     try {
-      const response = await axios({
-        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${
-          "AIzaSyAFbxx4LAR7KQaeCf0lJmiPd4nae2f60Nw"
-        }`,
-        method: "post",
-        data: {
-          contents: [{ parts: [{ text: message +"messeage less than 50"}] }],
-        },
-      });
-      const data =   await generateWormholeResponse(context,message)
+  
+      const data =   await generateWormholeAIResponse("Wormhole is a leading cross-chain communication protocol",message)
       console.log(data)
 
 
-      const aiResponse = response["data"]["candidates"][0]["content"]["parts"][0]["text"];
-      console.log(aiResponse)
       const botMessage = { 
         id: Date.now() + 1, 
         text: data, 
