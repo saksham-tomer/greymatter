@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useSession } from "next-auth/react"
 
 const NavLink = ({ href, children }) => (
   <a
@@ -16,6 +17,9 @@ const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  const { data: session, status } = useSession()
+console.log(session, status)
 
   const navItems = [
     { name: "Home", href: "#" },

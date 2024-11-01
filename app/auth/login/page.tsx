@@ -4,6 +4,7 @@ import { FaGoogle, FaApple, FaFacebookF } from 'react-icons/fa';
 import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import { ImagesSlider } from '@/components/ui/images-slider';
+import { signIn } from "next-auth/react";
 
 const AgentLogin = () => {
   const [email, setEmail] = useState('');
@@ -76,7 +77,12 @@ const AgentLogin = () => {
               </div>
             </div>
 
-            <button 
+            <button  onClick={(e)=>{
+                e.preventDefault()
+                signIn()
+
+
+            }}
               type="submit" 
               className="w-full py-3 bg-yellow-500/20 text-yellow-300 rounded-xl hover:bg-yellow-500/30 border border-yellow-500/20 transition duration-300 flex items-center justify-center space-x-2 hover:border-yellow-500/30"
             >
@@ -93,10 +99,12 @@ const AgentLogin = () => {
           <div className="flex justify-center space-x-4">
             {[
               { Icon: FaGoogle, color: 'text-red-500' },
-              { Icon: FaApple, color: 'text-white' },
-              { Icon: FaFacebookF, color: 'text-blue-500' }
             ].map(({ Icon, color }, index) => (
-              <button 
+              <button  onClick={(e)=>{
+                e.preventDefault()
+
+                signIn("google", { callbackUrl: "/blog" });
+              }}
                 key={index}
                 className="bg-white/5 border border-white/10 text-white rounded-full p-3 hover:bg-white/10 transition duration-300 flex items-center justify-center"
               >

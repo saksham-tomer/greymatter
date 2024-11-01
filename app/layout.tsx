@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Nav/Navbar";
 import ChatPopup from "@/components/chat"
 import Footer from "@/components/Landing/Footer";
+import  { SessionProvider } from "@/provider/provider";
 
 
 const geistSans = localFont({
@@ -29,6 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <SessionProvider>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -37,6 +39,7 @@ export default function RootLayout({
         {children}
         <Footer/>
       </body>
+      </SessionProvider>
     </html>
   );
 }
