@@ -1,51 +1,126 @@
 "use client"
-import { Globe } from "lucide-react";
-import React from "react";
-import { signIn } from "next-auth/react";
+import React, { useState } from 'react';
+import { FaGoogle, FaApple, FaFacebookF } from 'react-icons/fa';
+import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import { ImagesSlider } from '@/components/ui/images-slider';
 
-export default function LoginForm() {
-    return (
-        <div className="relative bg-gradient-to-b from-neutral-950 to-neutral-900 min-h-screen flex items-center justify-center text-neutral-100">
-            <form
-                className="flex flex-col items-center space-y-6 bg-neutral-800 bg-opacity-70 p-8 rounded-xl shadow-lg w-[350px] border border-neutral-700"
-                onSubmit={(e) => e.preventDefault()}
-            >
-                <h1 className="text-4xl font-bold bg-gradient-to-br from-neutral-100 to-neutral-400 bg-clip-text text-transparent">
-                    Login
-                </h1>
+const AgentLogin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-                <div className="w-full space-y-3">
-                    <label className="block text-sm text-neutral-300">Username</label>
-                    <input
-                        type="text"
-                        placeholder="Username..."
-                        className="w-full px-4 py-2 bg-black text-white rounded-lg focus:outline-none"
-                    />
-                </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your login logic here
+  };
 
-                <div className="w-full space-y-3">
-                    <label className="block text-sm  text-neutral-300">Password</label>
-                    <input
-                        type="password"
-                        placeholder="Password..."
-                        className="w-full px-4 py-2 bg-black text-white rounded-lg focus:outline-none"
-                    />
-                </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#121212] to-[#1e1e1e] flex items-center justify-center p-4">
+      <div className="w-full max-w-5xl bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-2">
+        {/* Image Section */}
+        <div className="relative h-[700px] w-full">
+          {/* <Image 
+            src="/epic.png"  // Replace with your actual image path
+            alt="Agent Login Background"
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0"
+          /> */}
 
-                <button
-                    type="submit"
-                    className="w-full px-5 py-2 mt-6 font-semibold text-black bg-white rounded-3xl shadow-md hover:bg-neutral-300 transition duration-300"
-                >
-                    Submit
-                </button>
-                <div  onClick={()=>{
-                    signIn()
-                }} className="flex gap-3 hover:cursor-pointer">
-                    <Globe/>
-                    <p>Login with google</p>
-
-                </div>
-            </form>
+          <ImagesSlider  images={[
+    "https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1482189349482-3defd547e0e9?q=80&w=2848&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  ];
+]}/>
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+            <div className="text-center text-white p-8">
+              <h3 className="text-4xl font-bold mb-4">Welcome Back</h3>
+              <p className="text-neutral-300">
+                Enter your credentials to access your agent dashboard
+              </p>
+            </div>
+          </div>
         </div>
-    );
-}
+
+        {/* Login Form Section */}
+        <div className="p-8 space-y-6 bg-black/30 backdrop-blur-xl">
+          <h2 className="text-3xl font-bold text-center text-white bg-gradient-to-br from-white to-neutral-400 bg-clip-text text-transparent">
+            Agent Login
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm text-neutral-300">Email / Phone No</label>
+              <input
+                type="text"
+                placeholder="Enter Email / Phone No"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 bg-white/5 text-white rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition duration-300"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm text-neutral-300">Passcode</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Passcode"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 bg-white/5 text-white rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition duration-300 pr-12"
+                />
+                <button 
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              className="w-full py-3 bg-yellow-500/20 text-yellow-300 rounded-xl hover:bg-yellow-500/30 border border-yellow-500/20 transition duration-300 flex items-center justify-center space-x-2 hover:border-yellow-500/30"
+            >
+              Sign In
+            </button>
+          </form>
+
+          <div className="text-center text-neutral-400 flex items-center justify-center space-x-4 my-4">
+            <div className="h-px bg-white/10 flex-grow"></div>
+            <span className="text-sm">Or Sign in with</span>
+            <div className="h-px bg-white/10 flex-grow"></div>
+          </div>
+
+          <div className="flex justify-center space-x-4">
+            {[
+              { Icon: FaGoogle, color: 'text-red-500' },
+              { Icon: FaApple, color: 'text-white' },
+              { Icon: FaFacebookF, color: 'text-blue-500' }
+            ].map(({ Icon, color }, index) => (
+              <button 
+                key={index}
+                className="bg-white/5 border border-white/10 text-white rounded-full p-3 hover:bg-white/10 transition duration-300 flex items-center justify-center"
+              >
+                <Icon size={24} className={color} />
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center mt-4 text-neutral-400">
+            Don't have an account? {' '}
+            <a href="#" className="text-blue-400 hover:text-blue-300 transition">
+              Request Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AgentLogin;
