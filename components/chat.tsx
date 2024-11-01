@@ -38,7 +38,7 @@ const ChatPopup = () => {
         }`,
         method: "post",
         data: {
-          contents: [{ parts: [{ text: message }] }],
+          contents: [{ parts: [{ text: message +"messeage less than 50 words"}] }],
         },
       });
 
