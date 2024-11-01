@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
-
+import { signOut } from "next-auth/react";
 const NavLink = ({ href, children }) => (
   <a
     href={href}
@@ -62,6 +62,10 @@ console.log(session, status)
                  <div className=" flex gap-10">
                 <div>{session.user.name}</div>
                 <Image height={30} width={30} src={session.user.image}/>
+                <div className=" border-2 border-black" onClick={(e)=>{
+                  e.preventDefault()
+                  signOut()
+                }}> Logout</div>
                 </div>
 
                 </>
