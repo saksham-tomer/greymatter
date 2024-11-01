@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useSession } from "next-auth/react"
+import Image from "next/image";
 
 const NavLink = ({ href, children }) => (
   <a
@@ -56,8 +57,17 @@ console.log(session, status)
               whileTap={{ scale: 0.95 }}
               className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
             >
-              Create Account
-            </motion.button>
+                { status=="authenticated" ?  
+                <>
+                 <div className=" flex gap-10">
+                <div>{session.user.name}</div>
+                <Image height={30} width={30} src={session.user.image}/>
+                </div>
+
+                </>
+                
+                   :  "Create Account"}
+                </motion.button>
           </div>
           <div className="md:hidden">
             <button
@@ -100,7 +110,7 @@ console.log(session, status)
                   whileTap={{ scale: 0.95 }}
                   className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
                 >
-                  Create Account
+                { status=="authenticated" ?   JSON.stringify(session)   :  "Create Account"}
                 </motion.button>
               </div>
             </div>
