@@ -53,8 +53,8 @@ console.log(session, status)
           </div>
           <div className="hidden md:block">
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+whileHover={status === "authenticated" ? {} : { scale: 1.05 }}
+whileTap={status === "authenticated" ? {} : { scale: 0.95 }}
               className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
             >
                 { status=="authenticated" ?  
