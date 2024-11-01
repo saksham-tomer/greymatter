@@ -43,9 +43,9 @@ yield across chains, move your funds, invest, and track - all from one platform!
         </div>
       </div>
       <FAQSection />
-      <div>
+      {/* <div>
         <Footer />
-      </div>
+      </div> */}
     </div>
   );
 }
