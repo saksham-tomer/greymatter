@@ -20,25 +20,19 @@ const AgentLogin = () => {
       <div className="w-full max-w-5xl bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-2">
         {/* Image Section */}
         <div className="relative h-[700px] w-full">
-          {/* <Image 
-            src="/epic.png"  // Replace with your actual image path
+          <Image 
+            src="/greymatterlogo.svg"  // Replace with your actual image path
             alt="Agent Login Background"
             layout="fill"
             objectFit="cover"
             className="absolute inset-0"
-          /> */}
+          />
 
-          <ImagesSlider  images={[
-    "https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1482189349482-3defd547e0e9?q=80&w=2848&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  ];
-]}/>
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
             <div className="text-center text-white p-8">
               <h3 className="text-4xl font-bold mb-4">Welcome Back</h3>
               <p className="text-neutral-300">
-                Enter your credentials to access your agent dashboard
+                Enter your credentials to access our aggregator
               </p>
             </div>
           </div>
