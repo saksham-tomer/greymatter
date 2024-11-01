@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { MessageCircle, X, Send, Minus } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { generateWormholeResponse,context } from '@/lib/model';
 
 const ChatPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,14 +39,18 @@ const ChatPopup = () => {
         }`,
         method: "post",
         data: {
-          contents: [{ parts: [{ text: message +"messeage less than 50 words"}] }],
+          contents: [{ parts: [{ text: message +"messeage less than 50"}] }],
         },
       });
+      const data =   await generateWormholeResponse(context,message)
+      console.log(data)
+
 
       const aiResponse = response["data"]["candidates"][0]["content"]["parts"][0]["text"];
+      console.log(aiResponse)
       const botMessage = { 
         id: Date.now() + 1, 
-        text: aiResponse, 
+        text: data, 
         sender: 'bot' 
       };
       
