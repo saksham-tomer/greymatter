@@ -29,7 +29,7 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-8">
+        {/* <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-1/3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -131,7 +131,7 @@ landscape. Get started now and optimize your DeFi strategies.
               ))}
             </GlassmorphicCard>
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center relative">
           <div className="absolute inset-x-0 bottom-0 h-24 opacity-5">
