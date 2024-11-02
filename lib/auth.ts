@@ -1,8 +1,10 @@
 import { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { SessionStrategy } from "next-auth";
-import db from "./prismaDb";
+import bcrypt from "bcryptjs"; // for password hashing comparison
+import db from "./prismaDb"; // Ensure this points to your Prisma instance
 import type { AuthOptions, DefaultSession } from "next-auth";
 
 declare module "next-auth" {
@@ -19,12 +21,35 @@ declare module "next-auth" {
     accessToken?: string;
   }
 }
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log(credentials,"oyeee")
+        //if (!credentials) return null;
+        
+        const user = await db.user.findUnique({
+          where: { username: credentials.username },
+        });
+        console.log(user,"kkkk")
+
+        if (user && bcrypt.compareSync(credentials.password, user.password)) {
+          return { id: user.id, name: user.name, email: user.email };
+        }
+
+        return null;
+      },
     }),
   ],
   debug: process.env.NODE_ENV === "development",

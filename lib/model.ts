@@ -4,7 +4,7 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 
 
-
+process.env.GOOGLE_API_KEY="AIzaSyAFbxx4LAR7KQaeCf0lJmiPd4nae2f60Nw"
 // Create a more robust Wormhole-specific tool
 const wormholeTool = tool(
   async (_) => {
@@ -56,6 +56,7 @@ export async function generateWormholeAIResponse(context: string, query: string)
     });
 
     // Validate response
+    console.log(response)
     if (!response.content.trim()) {
         return "Unable to generate Wormhole-specific response at this time"
     }

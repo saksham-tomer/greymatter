@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { FaGoogle, FaApple, FaFacebookF } from 'react-icons/fa';
 import { Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
-import { ImagesSlider } from '@/components/ui/images-slider';
 import { signIn } from "next-auth/react";
 
 const AgentLogin = () => {
@@ -77,15 +76,21 @@ const AgentLogin = () => {
               </div>
             </div>
 
-            <button  onClick={(e)=>{
-                e.preventDefault()
-                signIn()
-
-
-            }}
+            <button  
               type="submit" 
               className="w-full py-3 bg-yellow-500/20 text-yellow-300 rounded-xl hover:bg-yellow-500/30 border border-yellow-500/20 transition duration-300 flex items-center justify-center space-x-2 hover:border-yellow-500/30"
-            >
+              onClick={(e)=>{
+                (async()=>{
+
+                const result = await signIn("credentials", {
+                  redirect: false,
+                  username: email,
+                password:  password,
+                });
+              })()
+            
+
+              }} >
               Sign In
             </button>
           </form>
