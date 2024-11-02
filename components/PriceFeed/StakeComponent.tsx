@@ -5,6 +5,7 @@ import ChainSelect from './ChainSelect';
 import ChainData from './ChainData';
 import TvlChart from './PoolChart';
 import { useRouter } from 'next/navigation';
+import { ChevronLeft } from 'lucide-react';
 
 interface CardData {
   pool: string;
@@ -56,7 +57,12 @@ export const StakeComponent = () => {
         <Card className="w-full max-w-4xl">
 
           <CardHeader>
-          <p>Bacckkk</p>
+          <ChevronLeft 
+          onClick={() => {setShowChainSelect(true)
+            setShowPools(false)}
+          } 
+          className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
+        />
 
             <CardTitle className="font-bold text-2xl">Selected pool (?)</CardTitle>
           </CardHeader>
