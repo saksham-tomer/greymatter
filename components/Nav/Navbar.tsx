@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
+import { ChevronDown } from "lucide-react";
+
 const NavLink = ({ href, children }) => (
   <a
     href={href}
@@ -14,13 +16,63 @@ const NavLink = ({ href, children }) => (
   </a>
 );
 
+const UserDropdown = ({ session }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
+      >
+        <Image
+          height={24}
+          width={24}
+          src={session.user.image? session.user.image:"https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"}
+          alt={session.user.name}
+          className="rounded-full"
+        />
+        <span>{session.user.name}</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 mt-2 w-48 bg-neutral-800 rounded-md shadow-lg py-1 z-50"
+          >
+            <a
+              href="/dashboard"
+              className="block px-4 py-2 text-sm text-neutral-200 hover:bg-neutral-700 transition-colors duration-200"
+            >
+              Dashboard
+            </a>
+            <button
+              onClick={() => signOut()}
+              className="w-full text-left px-4 py-2 text-sm text-neutral-200 hover:bg-neutral-700 transition-colors duration-200"
+            >
+              Logout
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
-  const { data: session, status } = useSession()
-console.log(session, status)
+  const { data: session, status } = useSession();
+  console.log(session)
 
   const navItems = [
     { name: "Home", href: "#" },
@@ -52,26 +104,17 @@ console.log(session, status)
             </div>
           </div>
           <div className="hidden md:block">
-            <motion.button
-whileHover={status === "authenticated" ? {} : { scale: 1.05 }}
-whileTap={status === "authenticated" ? {} : { scale: 0.95 }}
-              className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
-            >
-                { status=="authenticated" ?  
-                <>
-                 <div className=" flex gap-10">
-                <div>{session.user.name}</div>
-                <Image height={30} width={30} src={session.user.image}/>
-                <div className=" border-2 border-black" onClick={(e)=>{
-                  e.preventDefault()
-                  signOut()
-                }}> Logout</div>
-                </div>
-
-                </>
-                
-                   :  "Create Account"}
-                </motion.button>
+            {status === "authenticated" ? (
+              <UserDropdown session={session} />
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
+              >
+                Create Account
+              </motion.button>
+            )}
           </div>
           <div className="md:hidden">
             <button
@@ -109,13 +152,40 @@ whileTap={status === "authenticated" ? {} : { scale: 0.95 }}
                 </a>
               ))}
               <div className="px-3 pt-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
-                >
-                { status=="authenticated" ?   JSON.stringify(session)   :  "Create Account"}
-                </motion.button>
+                {status === "authenticated" ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 px-2">
+                      <Image
+                        height={32}
+                        width={32}
+                        src={session.user.image}
+                        alt="Profile"
+                        className="rounded-full"
+                      />
+                      <span className="text-sm font-medium">{session.user.name}</span>
+                    </div>
+                    <a
+                      href="/dashboard"
+                      className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
+                    >
+                      Dashboard
+                    </a>
+                    <button
+                      onClick={() => signOut()}
+                      className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
+                  >
+                    Create Account
+                  </motion.button>
+                )}
               </div>
             </div>
           </motion.div>
