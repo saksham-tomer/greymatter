@@ -166,7 +166,7 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
               {index === chains.length - 1 ? (
                 <span className="text-blue-500 text-xs">More</span>
               ) : (
-                  <Image src={chain.icon} height={50} width={50}/>
+                  <Image src={chain.icon} height={20} width={20}/>
               )}
             </button>
           ))}

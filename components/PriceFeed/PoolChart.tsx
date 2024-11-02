@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { TrendingUp, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { ChevronLeft } from 'lucide-react';
 
 const TvlChart = ({ poolId }) => {
   const [data, setData] = useState([]);
@@ -115,6 +116,12 @@ const TvlChart = ({ poolId }) => {
   return (
     <Card className="w-full bg-gray-900 min-w-2xl text-gray-100 p-4 sm:p-8 rounded-xl">
       <CardHeader className="px-0">
+      <ChevronLeft 
+          onClick={() => {}}
+          
+          className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
+        />
+
         <div className="flex items-center gap-2 sm:gap-3 mb-2">
           <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />
           <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">
