@@ -15,7 +15,7 @@ const wormholeTool = tool(
     name: "wormhole_analyzer",
     description: "Analyzes and responds to Wormhole queries",
     schema: z.object({
-      answer: z.string().optional().describe("the respone of the wormhole blockchain query from google search ")
+      answer: z.string().optional().describe("the respone of the wormhole blockchain query from google search max 50 words ")
     })
   }
 );
@@ -37,7 +37,7 @@ export async function generateWormholeAIResponse(context: string, query: string)
     const wormholePrompt = ChatPromptTemplate.fromTemplate(`
       Strictly adhere to these rules:
       -  answer questions about wormhole blockchain   
-      - answer should be less than 50 words
+      - answer must should be less than 50 words
       - any unrelated query dont give a response
       - answer questions related to Defi 
       - any query related to cross-chain aggregators

@@ -76,10 +76,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", href: "#" },
-    { name: "Technology", href: "#" },
+    { name: "Stake", href: "/stake" },
     { name: "Features", href: "#" },
-    { name: "Pricing", href: "#" },
-    { name: "FAQ", href: "#" },
+    { name: "FAQ", href: "/aboutus" },
   ];
 
   return (

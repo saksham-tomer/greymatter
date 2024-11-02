@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { TrendingUp, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { ChevronLeft } from 'lucide-react';
 
 const TvlChart = ({ poolId }) => {
   const [data, setData] = useState([]);
@@ -69,7 +70,7 @@ const TvlChart = ({ poolId }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-gray-900 border border-gray-800 p-2 sm:p-4 rounded-lg shadow-xl">
+        <div className="bg-gray-900  border border-gray-800 p-2 sm:p-4 rounded-lg shadow-xl">
           <p className="text-gray-400 font-medium mb-1 sm:mb-2 text-sm sm:text-base">{label}</p>
           <p className="text-indigo-400 font-semibold text-sm sm:text-base">
             TVL: ${payload[0].value}B
@@ -113,8 +114,14 @@ const TvlChart = ({ poolId }) => {
   const currentAPY = data[data.length - 1]?.apy || 0;
 
   return (
-    <Card className="w-full bg-gray-900 min-w-2xl text-gray-100 p-4 sm:p-8 rounded-xl">
+    <Card className="min-w-[30rem]   bg-gray-900 min-w-2xl text-gray-100 p-4 sm:p-8 rounded-xl">
       <CardHeader className="px-0">
+      <ChevronLeft 
+          onClick={() => {}}
+          
+          className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
+        />
+
         <div className="flex items-center gap-2 sm:gap-3 mb-2">
           <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" />
           <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-emerald-400">

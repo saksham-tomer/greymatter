@@ -125,7 +125,7 @@ export const PoolCard: React.FC<PoolCardProps> = ({
             className="w-full h-full object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/placeholder.png';
+              target.src = '';
             }}
           />
         </motion.div>

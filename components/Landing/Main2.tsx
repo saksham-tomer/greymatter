@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import RetroGrid from "../ui/retro-grid";
 import { HeroTypo } from "./HeroTypo";
@@ -8,8 +9,10 @@ import { ParticlesDemo } from "./Particles";
 import { ThreeDCardDemo } from "./3dCard";
 import FAQSection from "./FaqSecton";
 import Footer from "./Footer";
+import { useRouter } from "next/navigation";
 
 function Main2() {
+  const router =useRouter()
   return (
     <div>
       <div className="relative bg-gradient-to-b from-neutral-950 to-neutral-900 min-w-full flex min-h-screen w-full flex-col items-center justify-center overflow-hidden  bg-background md:shadow-xl">
@@ -34,7 +37,9 @@ function Main2() {
 yield across chains, move your funds, invest, and track - all from one platform!
 
           </p>
-          <button className="px-7 py-3 transition-colors duration-300  bg-white text-black rounded-3xl shadow-md hover:bg-neutral-300 mt-4 max-w-[14rem] font-semibold">
+          <button onClick={()=>{
+            router.push("/stake")
+          }} className="px-7 py-3 transition-colors duration-300  bg-white text-black rounded-3xl shadow-md hover:bg-neutral-300 mt-4 max-w-[14rem] font-semibold">
           Get Started
           </button>
         </div>

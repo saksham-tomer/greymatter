@@ -19,7 +19,7 @@ const GlassmorphicCard = ({ children, className }) => (
 
 const Footer = () => {
   return (
-    <footer className="bg-neutral-900 text-white py-12 relative overflow-hidden">
+    <footer className="bg-gray-900  text-white py-12 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="grid grid-cols-12 h-full">
           {[...Array(12)].map((_, i) => (
