@@ -28,7 +28,7 @@ export async function generateWormholeAIResponse(context: string, query: string)
   try {
     // Initialize Gemini AI Model with Wormhole tool
     const geminiLLM = new ChatGoogleGenerativeAI({
-      model: "gemini-pro",
+      model: "gemini-1.5-flash",
       maxOutputTokens: 400,
       temperature:0.9
     }).bindTools([wormholeTool]);
