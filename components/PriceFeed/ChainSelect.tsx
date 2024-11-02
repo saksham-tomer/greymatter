@@ -41,7 +41,7 @@ interface ChainSelectProps {
 }
 
 const chains = [
-  { label: 'All', icon: '/etherium.svg' },
+  { label: 'All', icon: '/globe.svg' },
   { label: 'Ethereum', icon: '/etherium.svg' },
   { label: 'Solana', icon: '/solana.svg' },
   { label: 'Arbitrum', icon: '/arbit.svg' },
@@ -62,11 +62,11 @@ const extraChains = [
   { label: 'BSC', icon: '/mantel.svg' },
   { label: 'Arrow', icon: '/mantel.svg' },
   { label: 'Optimism', icon: '/mantel.svg' },
-  { label: 'Fantom', icon: '/mantel.svg' },
+  { label: 'Fantom', icon: '/fantom.svg' },
   { label: 'Polygon', icon: '/mantel.svg' },
   { label: 'Avalanche', icon: '/mantel.svg' },
   { label: 'Celo', icon: '/mantel.svg' },
-  { label: 'Moonbeam', icon: '/mantel.svg' },
+  { label: 'Moonbeam', icon: '/moonbeam.svg' },
   { label: 'Kava', icon: '/mantel.svg' },
   { label: 'Scroll', icon: '/mantel.svg' },
   { label: 'Mantle', icon: '/mantel.svg' },
@@ -166,9 +166,7 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
               {index === chains.length - 1 ? (
                 <span className="text-blue-500 text-xs">More</span>
               ) : (
-                <span className="text-2xl">
                   <Image src={chain.icon} height={50} width={50}/>
-                 </span>
               )}
             </button>
           ))}
