@@ -54,7 +54,10 @@ export const StakeComponent = () => {
       
       {showPools && (
         <Card className="w-full max-w-4xl">
+
           <CardHeader>
+          <p>Bacckkk</p>
+
             <CardTitle className="font-bold text-2xl">Selected pool (?)</CardTitle>
           </CardHeader>
           <CardContent>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ChevronLeft, Search } from 'lucide-react';
+import Image from 'next/image';
 
 interface YieldPool {
   chain: string;
@@ -40,38 +41,38 @@ interface ChainSelectProps {
 }
 
 const chains = [
-  { label: 'All', icon: '🌐' },
-  { label: 'Ethereum', icon: '🔷' },
-  { label: 'Solana', icon: '🟡' },
-  { label: 'Arbitrum', icon: '🌙' },
-  { label: 'Base', icon: '🟡' },
-  { label: 'Sui', icon: '⚪' },
-  { label: 'BSC', icon: '♾️' },
-  { label: 'Arrow', icon: '➡️' },
-  { label: 'Optimism', icon: '〰️' },
-  { label: 'Fantom', icon: '🔴' }
+  { label: 'All', icon: '/etherium.svg' },
+  { label: 'Ethereum', icon: '/etherium.svg' },
+  { label: 'Solana', icon: '/solana.svg' },
+  { label: 'Arbitrum', icon: '/arbit.svg' },
+  { label: 'Base', icon: '/optimism.svg' },
+  { label: 'Sui', icon: '/sui.svg' },
+  { label: 'BSC', icon: '/sui.svg' },
+  { label: 'Arrow', icon: '/sui.svg' },
+  { label: 'Optimism', icon: '/optimism.svg' },
+  { label: 'Fantom', icon: '/fantom.svg' }
 ];
 
 const extraChains = [
-  { label: 'Ethereum', icon: '🔷' },
-  { label: 'Solana', icon: '🟡' },
-  { label: 'Arbitrum', icon: '🌙' },
-  { label: 'Base', icon: '🟡' },
-  { label: 'Sui', icon: '⚪' },
-  { label: 'BSC', icon: '♾️' },
-  { label: 'Arrow', icon: '➡️' },
-  { label: 'Optimism', icon: '〰️' },
-  { label: 'Fantom', icon: '🔴' },
-  { label: 'Polygon', icon: '🔺' },
-  { label: 'Avalanche', icon: '🔺' },
-  { label: 'Celo', icon: '⚪' },
-  { label: 'Moonbeam', icon: '🌙' },
-  { label: 'Kava', icon: '🟦' },
-  { label: 'Scroll', icon: '📜' },
-  { label: 'Mantle', icon: '🛡️' },
-  { label: 'X Layer', icon: '❌' },
-  { label: 'Blast', icon: '💥' },
-  { label: 'Aptos', icon: '🔵' }
+  { label: 'Ethereum', icon: '/etherium.svg' },
+  { label: 'Solana', icon: '/solana.svg' },
+  { label: 'Arbitrum', icon: '/arbit.svg' },
+  { label: 'Base', icon: '/mantel.svg' },
+  { label: 'Sui', icon: '/sui.svg' },
+  { label: 'BSC', icon: '/mantel.svg' },
+  { label: 'Arrow', icon: '/mantel.svg' },
+  { label: 'Optimism', icon: '/mantel.svg' },
+  { label: 'Fantom', icon: '/mantel.svg' },
+  { label: 'Polygon', icon: '/mantel.svg' },
+  { label: 'Avalanche', icon: '/mantel.svg' },
+  { label: 'Celo', icon: '/mantel.svg' },
+  { label: 'Moonbeam', icon: '/mantel.svg' },
+  { label: 'Kava', icon: '/mantel.svg' },
+  { label: 'Scroll', icon: '/mantel.svg' },
+  { label: 'Mantle', icon: '/mantel.svg' },
+  { label: 'X Layer', icon: '/mantel.svg' },
+  { label: 'Blast', icon: '/mantel.svg' },
+  { label: 'Aptos', icon: '/mantel.svg' }
 ];
 
 const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardData, setShowPools }) => {
@@ -144,7 +145,7 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
       </div>
 
       <div className="mb-6">
-        <h3 className="text-sm font-semibold mb-3">Select Chain</h3>
+        <h3 className="text-sm font-semibold  pb-5">Select Chain</h3>
         <div className="grid grid-cols-5 gap-4">
           {chains.map((chain, index) => (
             <button
@@ -165,7 +166,9 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
               {index === chains.length - 1 ? (
                 <span className="text-blue-500 text-xs">More</span>
               ) : (
-                <span className="text-2xl">{chain.icon}</span>
+                <span className="text-2xl">
+                  <Image src={chain.icon} height={50} width={50}/>
+                 </span>
               )}
             </button>
           ))}
@@ -193,7 +196,8 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
                     }}
                     className="flex flex-col items-center p-2 rounded-xl hover:bg-gray-100 transition-colors"
                   >
-                    <span className="text-2xl mb-1">{chain.icon}</span>
+                    <span className="text-2xl mb-1">
+                      <Image width={20} height={20} src={chain.icon}/></span>
                     <span className="text-xs">{chain.label}</span>
                   </button>
                 ))}
