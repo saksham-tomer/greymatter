@@ -70,7 +70,7 @@ const TvlChart = ({ poolId }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-gray-900 border border-gray-800 p-2 sm:p-4 rounded-lg shadow-xl">
+        <div className="bg-gray-900  border border-gray-800 p-2 sm:p-4 rounded-lg shadow-xl">
           <p className="text-gray-400 font-medium mb-1 sm:mb-2 text-sm sm:text-base">{label}</p>
           <p className="text-indigo-400 font-semibold text-sm sm:text-base">
             TVL: ${payload[0].value}B
@@ -114,7 +114,7 @@ const TvlChart = ({ poolId }) => {
   const currentAPY = data[data.length - 1]?.apy || 0;
 
   return (
-    <Card className="w-full bg-gray-900 min-w-2xl text-gray-100 p-4 sm:p-8 rounded-xl">
+    <Card className="min-w-[30rem]   bg-gray-900 min-w-2xl text-gray-100 p-4 sm:p-8 rounded-xl">
       <CardHeader className="px-0">
       <ChevronLeft 
           onClick={() => {}}
