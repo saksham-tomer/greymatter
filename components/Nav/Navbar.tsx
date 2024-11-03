@@ -6,6 +6,9 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { ChevronDown } from "lucide-react";
+import { WalletButton } from "./WalletButton";
+import { NetworkStatus } from "./NetworkStatus";
+import { useRouter } from "next/navigation";
 
 const NavLink = ({ href, children }) => (
   <a
@@ -28,7 +31,11 @@ const UserDropdown = ({ session }) => {
         <Image
           height={24}
           width={24}
-          src={session.user.image? session.user.image:"https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"}
+          src={
+            session.user.image
+              ? session.user.image
+              : "https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"
+          }
           alt={session.user.name}
           className="rounded-full"
         />
@@ -72,7 +79,8 @@ const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const { data: session, status } = useSession();
-  console.log(session)
+
+  const router = useRouter();
 
   const navItems = [
     { name: "Home", href: "#" },
@@ -87,12 +95,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <a href="#" className="flex-shrink-0 flex items-center">
-              <div className="w-6 h-6 bg-white flex items-center justify-center">
-                <div className="w-4 h-4 bg-neutral-900"></div>
-              </div>
+              <Image
+                src={"/greymatterlogo.svg"}
+                alt=""
+                height={1920}
+                width={1080}
+                className="max-w-8 rounded-xl max-h-8 object-cover"
+              />
               <span className="ml-2 text-xl font-semibold">GreyMatter.</span>
             </a>
           </div>
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (
@@ -102,7 +115,12 @@ const Navbar = () => {
               ))}
             </div>
           </div>
-          <div className="hidden md:block">
+
+          <div className="hidden md:flex items-center space-x-4">
+            <div className="flex flex-col items-end">
+              <WalletButton />
+            </div>
+
             {status === "authenticated" ? (
               <UserDropdown session={session} />
             ) : (
@@ -115,6 +133,7 @@ const Navbar = () => {
               </motion.button>
             )}
           </div>
+
           <div className="md:hidden">
             <button
               onClick={toggleSidebar}
@@ -141,6 +160,13 @@ const Navbar = () => {
             className="md:hidden fixed top-0 right-0 bottom-0 w-64 bg-neutral-800 z-50"
           >
             <div className="pt-5 pb-3 space-y-1">
+              <div className="px-3 mb-4">
+                <NetworkStatus />
+                <div className="mt-2">
+                  <WalletButton />
+                </div>
+              </div>
+
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -150,6 +176,7 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
+
               <div className="px-3 pt-4">
                 {status === "authenticated" ? (
                   <div className="space-y-2">
@@ -161,7 +188,9 @@ const Navbar = () => {
                         alt="Profile"
                         className="rounded-full"
                       />
-                      <span className="text-sm font-medium">{session.user.name}</span>
+                      <span className="text-sm font-medium">
+                        {session.user.name}
+                      </span>
                     </div>
                     <a
                       href="/dashboard"
@@ -179,6 +208,7 @@ const Navbar = () => {
                 ) : (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
+                    onClick={() => router.push("/auth/login")}
                     whileTap={{ scale: 0.95 }}
                     className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
                   >
