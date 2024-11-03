@@ -80,14 +80,12 @@ const AgentLogin = () => {
               type="submit" 
               className="w-full py-3 bg-yellow-500/20 text-yellow-300 rounded-xl hover:bg-yellow-500/30 border border-yellow-500/20 transition duration-300 flex items-center justify-center space-x-2 hover:border-yellow-500/30"
               onClick={(e)=>{
-                (async()=>{
 
-                const result = await signIn("credentials", {
+                 signIn("credentials", {
                   redirect: false,
                   username: email,
                 password:  password,
                 });
-              })()
             
 
               }} >

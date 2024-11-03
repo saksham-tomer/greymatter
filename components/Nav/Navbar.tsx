@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
 import { ChevronDown } from "lucide-react";
 
 const NavLink = ({ href, children }) => (
@@ -19,6 +18,10 @@ const NavLink = ({ href, children }) => (
 const UserDropdown = ({ session }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleSignOut = () => {
+    signOut({ redirect: true, callbackUrl: "/" });
+  };
+
   return (
     <div className="relative">
       <button
@@ -28,8 +31,8 @@ const UserDropdown = ({ session }) => {
         <Image
           height={24}
           width={24}
-          src={session.user.image? session.user.image:"https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"}
-          alt={session.user.name}
+          src={session.user.image || "https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"}
+          alt={session.user.name || "User"}
           className="rounded-full"
         />
         <span>{session.user.name}</span>
@@ -56,7 +59,7 @@ const UserDropdown = ({ session }) => {
               Dashboard
             </a>
             <button
-              onClick={() => signOut()}
+              onClick={handleSignOut}
               className="w-full text-left px-4 py-2 text-sm text-neutral-200 hover:bg-neutral-700 transition-colors duration-200"
             >
               Logout
@@ -70,9 +73,9 @@ const UserDropdown = ({ session }) => {
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const { data: session, status } = useSession();
-  console.log(session)
+  
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const navItems = [
     { name: "Home", href: "#" },
@@ -80,6 +83,27 @@ const Navbar = () => {
     { name: "Features", href: "#" },
     { name: "FAQ", href: "/aboutus" },
   ];
+
+  const renderAuthButton = () => {
+    if (status === "loading") {
+      return null;
+    }
+
+    if (status === "authenticated" && session) {
+      return <UserDropdown session={session} />;
+    }
+
+    return (
+      <motion.a
+        href="/auth/signin"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md inline-block"
+      >
+        Create Account
+      </motion.a>
+    );
+  };
 
   return (
     <nav className="bg-neutral-900 text-white border-b border-neutral-800">
@@ -93,6 +117,7 @@ const Navbar = () => {
               <span className="ml-2 text-xl font-semibold">GreyMatter.</span>
             </a>
           </div>
+          
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navItems.map((item) => (
@@ -102,19 +127,11 @@ const Navbar = () => {
               ))}
             </div>
           </div>
+
           <div className="hidden md:block">
-            {status === "authenticated" ? (
-              <UserDropdown session={session} />
-            ) : (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-neutral-800 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-md"
-              >
-                Create Account
-              </motion.button>
-            )}
+            {renderAuthButton()}
           </div>
+
           <div className="md:hidden">
             <button
               onClick={toggleSidebar}
@@ -133,74 +150,75 @@ const Navbar = () => {
 
       <AnimatePresence>
         {isSidebarOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="md:hidden fixed top-0 right-0 bottom-0 w-64 bg-neutral-800 z-50"
-          >
-            <div className="pt-5 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-700"
-                >
-                  {item.name}
-                </a>
-              ))}
-              <div className="px-3 pt-4">
-                {status === "authenticated" ? (
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 px-2">
-                      <Image
-                        height={32}
-                        width={32}
-                        src={session.user.image}
-                        alt="Profile"
-                        className="rounded-full"
-                      />
-                      <span className="text-sm font-medium">{session.user.name}</span>
-                    </div>
-                    <a
-                      href="/dashboard"
-                      className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
-                    >
-                      Dashboard
-                    </a>
-                    <button
-                      onClick={() => signOut()}
-                      className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
+          <>
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="md:hidden fixed top-0 right-0 bottom-0 w-64 bg-neutral-800 z-50"
+            >
+              <div className="pt-5 pb-3 space-y-1">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block px-3 py-2 text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-700"
                   >
-                    Create Account
-                  </motion.button>
-                )}
+                    {item.name}
+                  </a>
+                ))}
+                <div className="px-3 pt-4">
+                  {status === "authenticated" && session ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 px-2">
+                        <Image
+                          height={32}
+                          width={32}
+                          src={session.user.image || "https://avatars.githubusercontent.com/u/115660976?s=400&u=a81ec7c3ac47828435923839d77a659302962e97&v=4"}
+                          alt="Profile"
+                          className="rounded-full"
+                        />
+                        <span className="text-sm font-medium">{session.user.name}</span>
+                      </div>
+                      <a
+                        href="/dashboard"
+                        className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
+                      >
+                        Dashboard
+                      </a>
+                      <button
+                        onClick={() => signOut()}
+                        className="block w-full text-left px-2 py-2 text-sm text-neutral-300 hover:bg-neutral-700 rounded-md"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <motion.a
+                      href="/auth/signin"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="block w-full text-center bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
+                    >
+                      Create Account
+                    </motion.a>
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black bg-opacity-50 z-40"
+              onClick={toggleSidebar}
+            />
+          </>
         )}
       </AnimatePresence>
-
-      {isSidebarOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={toggleSidebar}
-        />
-      )}
     </nav>
   );
 };

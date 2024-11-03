@@ -51,7 +51,7 @@ const AgentSignup = () => {
       console.log('Signup successful:', data);
       
       // Optional: Automatically sign in after successful signup
-      await signIn("credentials", {
+       signIn("credentials", {
         redirect: true,
         username: formData.username,
         password: formData.password,

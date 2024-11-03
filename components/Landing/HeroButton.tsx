@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 
-export async function HeroButton() {
+export  function HeroButton() {
   return (
     <div
       className={cn(
