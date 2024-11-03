@@ -5,6 +5,9 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { WalletButton } from "./WalletButton";
+import { NetworkStatus } from "./NetworkStatus";
+import { useRouter } from "next/navigation";
 
 const NavLink = ({ href, children }) => (
   <a
@@ -111,9 +114,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <a href="#" className="flex-shrink-0 flex items-center">
-              <div className="w-6 h-6 bg-white flex items-center justify-center">
-                <div className="w-4 h-4 bg-neutral-900"></div>
-              </div>
+              <Image
+                src={"/greymatterlogo.svg"}
+                alt=""
+                height={1920}
+                width={1080}
+                className="max-w-8 rounded-xl max-h-8 object-cover"
+              />
               <span className="ml-2 text-xl font-semibold">GreyMatter.</span>
             </a>
           </div>

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Nav/Navbar";
-import ChatPopup from "@/components/chat"
+import ChatPopup from "@/components/chat";
 import Footer from "@/components/Landing/Footer";
-import  { SessionProvider } from "@/provider/provider";
-
+import { SessionProvider } from "@/provider/provider";
+import { WalletProvider } from "@/components/Nav/Web3Wallet";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,14 +31,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SessionProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ChatPopup/>
-        <Navbar />
-        {children}
-        <Footer/>
-      </body>
+        <WalletProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <ChatPopup />
+            <Navbar />
+            {children}
+          </body>
+        </WalletProvider>
       </SessionProvider>
     </html>
   );

@@ -19,7 +19,7 @@ const GlassmorphicCard = ({ children, className }) => (
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900  text-white py-12 relative overflow-hidden">
+    <footer className="bg-neutral-900  text-white py-12 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="grid grid-cols-12 h-full">
           {[...Array(12)].map((_, i) => (
@@ -29,7 +29,7 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        {/* <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-1/3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -39,13 +39,13 @@ const Footer = () => {
               <GlassmorphicCard>
                 <img src="/epic.png" alt="Webtrix" className="h-8 mb-6" />
                 <h2 className="text-2xl font-bold mb-4">
-                Get Started with Grey Matter – Your Smart Yield Solution
-                Why limit your yield?
+                  Get Started with Grey Matter – Your Smart Yield Solution Why
+                  limit your yield?
                 </h2>
                 <p className="mb-4 text-neutral-300 text-sm">
-                Grey Matter bridges the gap to higher returns across the blockchain
-landscape. Get started now and optimize your DeFi strategies.
-
+                  Grey Matter bridges the gap to higher returns across the
+                  blockchain landscape. Get started now and optimize your DeFi
+                  strategies.
                 </p>
                 <form className="flex">
                   <input
@@ -131,7 +131,7 @@ landscape. Get started now and optimize your DeFi strategies.
               ))}
             </GlassmorphicCard>
           </div>
-        </div> */}
+        </div>
 
         <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center relative">
           <div className="absolute inset-x-0 bottom-0 h-24 opacity-5">
