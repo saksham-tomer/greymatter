@@ -83,10 +83,10 @@ const Navbar = () => {
   const router = useRouter();
 
   const navItems = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "/" },
     { name: "Stake", href: "/stake" },
-    { name: "Features", href: "#" },
-    { name: "FAQ", href: "/aboutus" },
+    { name: "Features", href: "/" },
+    { name: "FAQ", href: "https://x.com/SakshamDevDose" },
   ];
 
   return (
@@ -94,7 +94,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="#" className="flex-shrink-0 flex items-center">
+            <a href="/" className="flex-shrink-0 flex items-center">
               <Image
                 src={"/greymatterlogo.svg"}
                 alt=""
@@ -206,14 +206,16 @@ const Navbar = () => {
                     </button>
                   </div>
                 ) : (
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => router.push("/auth/login")}
-                    whileTap={{ scale: 0.95 }}
+                  <button
+                    onClick={() => {
+                      router.push("/auth/login");
+                    }}
+                    // whileHover={{ scale: 1.05 }}
+                    // whileTap={{ scale: 0.95 }}
                     className="w-full bg-neutral-700 hover:bg-neutral-600 text-white font-medium py-2 px-4 rounded-md"
                   >
                     Create Account
-                  </motion.button>
+                  </button>
                 )}
               </div>
             </div>

@@ -1,65 +1,64 @@
-"use client"
-import React, { useState } from 'react';
-import { FaGoogle } from 'react-icons/fa';
-import { Eye, EyeOff } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import { FaGoogle } from "react-icons/fa";
+import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 
 const AgentSignup = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    name: '',
-    email: '',
+    username: "",
+    password: "",
+    name: "",
+    email: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear any previous error when user starts typing
-    setError('');
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const response = await fetch('/create', {
-        method: 'POST',
+      const response = await fetch("/create", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Signup failed');
+        throw new Error(errorData.message || "Signup failed");
       }
 
       const data = await response.json();
       // Handle successful signup
       // You might want to redirect to login page or automatically sign in the user
-      console.log('Signup successful:', data);
-      
+      console.log("Signup successful:", data);
+
       // Optional: Automatically sign in after successful signup
-      await signIn("credentials", {
+      signIn("credentials", {
         redirect: true,
         username: formData.username,
         password: formData.password,
-        callbackUrl: "/"
+        callbackUrl: "/",
       });
-
     } catch (err) {
-      setError(err.message || 'An error occurred during signup');
+      setError(err.message || "An error occurred during signup");
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +69,7 @@ const AgentSignup = () => {
       <div className="w-full max-w-5xl bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-2">
         {/* Image Section */}
         <div className="relative h-[800px] w-full">
-          <Image 
+          <Image
             src="/greymatterlogo.svg"
             alt="Agent Signup Background"
             layout="fill"
@@ -102,7 +101,9 @@ const AgentSignup = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm text-neutral-300">Full Name</label>
+              <label className="block text-sm text-neutral-300">
+                Full Name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -115,7 +116,9 @@ const AgentSignup = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm text-neutral-300">Email Address</label>
+              <label className="block text-sm text-neutral-300">
+                Email Address
+              </label>
               <input
                 type="email"
                 name="email"
@@ -152,7 +155,7 @@ const AgentSignup = () => {
                   className="w-full px-4 py-3 bg-white/5 text-white rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition duration-300 pr-12"
                   required
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition"
@@ -170,7 +173,7 @@ const AgentSignup = () => {
               {isLoading ? (
                 <span className="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-yellow-300"></span>
               ) : (
-                'Create Account'
+                "Create Account"
               )}
             </button>
           </form>
@@ -191,8 +194,11 @@ const AgentSignup = () => {
           </div>
 
           <div className="text-center mt-4 text-neutral-400">
-            Already have an account? {' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300 transition">
+            Already have an account?{" "}
+            <a
+              href="#"
+              className="text-blue-400 hover:text-blue-300 transition"
+            >
               Sign In
             </a>
           </div>

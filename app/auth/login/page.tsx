@@ -1,13 +1,13 @@
-"use client"
-import React, { useState } from 'react';
-import { FaGoogle, FaApple, FaFacebookF } from 'react-icons/fa';
-import { Eye, EyeOff } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import { FaGoogle, FaApple, FaFacebookF } from "react-icons/fa";
+import { Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 
 const AgentLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
@@ -20,8 +20,8 @@ const AgentLogin = () => {
       <div className="w-full max-w-5xl bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-2">
         {/* Image Section */}
         <div className="relative h-[700px] w-full">
-          <Image 
-            src="/greymatterlogo.svg"  // Replace with your actual image path
+          <Image
+            src="/greymatterlogo.svg" // Replace with your actual image path
             alt="Agent Login Background"
             layout="fill"
             objectFit="cover"
@@ -46,7 +46,9 @@ const AgentLogin = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm text-neutral-300">Email / Phone No</label>
+              <label className="block text-sm text-neutral-300">
+                Email / Phone No
+              </label>
               <input
                 type="text"
                 placeholder="Enter Email / Phone No"
@@ -66,7 +68,7 @@ const AgentLogin = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 bg-white/5 text-white rounded-xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition duration-300 pr-12"
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition"
@@ -76,21 +78,17 @@ const AgentLogin = () => {
               </div>
             </div>
 
-            <button  
-              type="submit" 
+            <button
+              type="submit"
               className="w-full py-3 bg-yellow-500/20 text-yellow-300 rounded-xl hover:bg-yellow-500/30 border border-yellow-500/20 transition duration-300 flex items-center justify-center space-x-2 hover:border-yellow-500/30"
-              onClick={(e)=>{
-                (async()=>{
-
-                const result = await signIn("credentials", {
+              onClick={() => {
+                signIn("credentials", {
                   redirect: false,
                   username: email,
-                password:  password,
+                  password: password,
                 });
-              })()
-            
-
-              }} >
+              }}
+            >
               Sign In
             </button>
           </form>
@@ -102,25 +100,29 @@ const AgentLogin = () => {
           </div>
 
           <div className="flex justify-center space-x-4">
-            {[
-              { Icon: FaGoogle, color: 'text-red-500' },
-            ].map(({ Icon, color }, index) => (
-              <button  onClick={(e)=>{
-                e.preventDefault()
+            {[{ Icon: FaGoogle, color: "text-red-500" }].map(
+              ({ Icon, color }, index) => (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
 
-                signIn("google", { callbackUrl: "/blog" });
-              }}
-                key={index}
-                className="bg-white/5 border border-white/10 text-white rounded-full p-3 hover:bg-white/10 transition duration-300 flex items-center justify-center"
-              >
-                <Icon size={24} className={color} />
-              </button>
-            ))}
+                    signIn("google", { callbackUrl: "/blog" });
+                  }}
+                  key={index}
+                  className="bg-white/5 border border-white/10 text-white rounded-full p-3 hover:bg-white/10 transition duration-300 flex items-center justify-center"
+                >
+                  <Icon size={24} className={color} />
+                </button>
+              )
+            )}
           </div>
 
           <div className="text-center mt-4 text-neutral-400">
-            Don't have an account? {' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300 transition">
+            Don't have an account?{" "}
+            <a
+              href="#"
+              className="text-blue-400 hover:text-blue-300 transition"
+            >
               Request Now
             </a>
           </div>

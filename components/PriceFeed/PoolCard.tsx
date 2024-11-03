@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PoolCardProps {
   icon: string;
   title: string;
-  chain: string;
+  chain: string | undefined;
   totalLocked: string;
   poolBalance: number;
   apr: number;
@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, tooltip }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div 
+    <div
       className="relative inline-block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -46,13 +46,13 @@ const Tooltip: React.FC<TooltipProps> = ({ children, tooltip }) => {
   );
 };
 
-const StatDisplay: React.FC<{ label: string; value: string; tooltip?: string }> = ({
-  label,
-  value,
-  tooltip
-}) => {
+const StatDisplay: React.FC<{
+  label: string;
+  value: string;
+  tooltip?: string;
+}> = ({ label, value, tooltip }) => {
   const content = (
-    <motion.div 
+    <motion.div
       className="flex flex-col"
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -64,7 +64,7 @@ const StatDisplay: React.FC<{ label: string; value: string; tooltip?: string }> 
       ) : (
         <span className="text-sm font-bold text-gray-400">{label}</span>
       )}
-      <motion.span 
+      <motion.span
         className="text-base font-bold text-black"
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export const PoolCard: React.FC<PoolCardProps> = ({
   apr,
   project,
   boostedApr,
-  onManage
+  onManage,
 }) => {
   const validatePercentage = (value: number): string => {
     return `${Math.min(Math.max(value, 0), 100).toFixed(2)}%`;
@@ -100,43 +100,43 @@ export const PoolCard: React.FC<PoolCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.02,
-        boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)"
+        boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
       }}
       className="bg-gray-200 p-4 rounded-xl gap-4 border-b pb-4 flex flex-col"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <motion.div 
+      <motion.div
         className="flex items-center justify-between flex-row space-x-2"
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <motion.div 
+        <motion.div
           className="w-8 h-8"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img 
-            src={icon} 
-            alt={title} 
+          <img
+            src={icon}
+            alt={title}
             className="w-full h-full object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '';
+              target.src = "";
             }}
           />
         </motion.div>
         <div>
-          <motion.div 
+          <motion.div
             className="font-bold"
             animate={{ color: isHovered ? "#000" : "#1a1a1a" }}
           >
             {title}
           </motion.div>
-          <motion.div 
+          <motion.div
             className="text-gray-500 font-bold"
             animate={{ opacity: isHovered ? 1 : 0.8 }}
           >
@@ -144,52 +144,49 @@ export const PoolCard: React.FC<PoolCardProps> = ({
           </motion.div>
         </div>
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         className="flex flex-row items-center justify-between space-y-1"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        <StatDisplay 
-          label="Total Locked"
-          value={totalLocked}
-        />
-        
-        <StatDisplay 
+        <StatDisplay label="Total Locked" value={totalLocked} />
+
+        <StatDisplay
           label="Pool Balance"
           value={validatePercentage(poolBalance)}
           tooltip="The current balance in the pool"
         />
-        
-        <StatDisplay 
+
+        <StatDisplay
           label="APR"
           value={validatePercentage(apr)}
           tooltip="Annual Percentage Rate"
         />
-        
-        <StatDisplay 
+
+        <StatDisplay
           label="Boosted APR"
           value={validatePercentage(boostedApr)}
           tooltip="Enhanced APR with additional rewards"
         />
       </motion.div>
-      
-      <motion.button 
+
+      <motion.button
         onClick={onManage}
         className="mt-4 w-full bg-black font-bold text-white py-2 rounded-xl"
-        whileHover={{ 
+        whileHover={{
           scale: 1.02,
-          backgroundColor: "#1a1a1a"
+          backgroundColor: "#1a1a1a",
         }}
         whileTap={{ scale: 0.98 }}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ 
+        transition={{
           delay: 0.4,
           type: "spring",
           stiffness: 300,
-          damping: 20
+          damping: 20,
         }}
       >
         Stats

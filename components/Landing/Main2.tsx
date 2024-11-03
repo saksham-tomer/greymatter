@@ -2,7 +2,7 @@
 import React from "react";
 import RetroGrid from "../ui/retro-grid";
 import { HeroTypo } from "./HeroTypo";
-import { HeroButton } from "./HeroButton";
+import HeroButton from "./HeroButton";
 import { Meteors } from "../ui/meteors";
 import { InfiniteMovingCardsDemo } from "./Marquee";
 import { ParticlesDemo } from "./Particles";
@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 function Main2() {
   const router = useRouter();
   return (
-    <div>
+    <div suppressHydrationWarning>
       <div className="relative bg-gradient-to-b from-neutral-950 to-neutral-900 min-w-full flex min-h-screen w-full flex-col items-center justify-center overflow-hidden  bg-background md:shadow-xl">
         <Meteors number={20} />
         <span className="mt-40 pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-neutral-100 via-neutral-400 to-neutral-700 bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">

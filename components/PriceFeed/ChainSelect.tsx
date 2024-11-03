@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ChevronLeft, Search } from 'lucide-react';
-import Image from 'next/image';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { ChevronLeft, Search } from "lucide-react";
+import Image from "next/image";
 
 interface YieldPool {
   chain: string;
@@ -41,45 +41,48 @@ interface ChainSelectProps {
 }
 
 const chains = [
-  { label: 'All', icon: '/globe.svg' },
-  { label: 'Ethereum', icon: '/etherium.svg' },
-  { label: 'Solana', icon: '/solana.svg' },
-  { label: 'Arbitrum', icon: '/arbit.svg' },
-  { label: 'Base', icon: '/optimism.svg' },
-  { label: 'Sui', icon: '/sui.svg' },
-  { label: 'BSC', icon: '/sui.svg' },
-  { label: 'Arrow', icon: '/sui.svg' },
-  { label: 'Optimism', icon: '/optimism.svg' },
-  { label: 'Fantom', icon: '/fantom.svg' }
+  { label: "All", icon: "/globe.svg" },
+  { label: "Ethereum", icon: "/etherium.svg" },
+  { label: "Solana", icon: "/solana.svg" },
+  { label: "Arbitrum", icon: "/arbit.svg" },
+  { label: "Base", icon: "/optimism.svg" },
+  { label: "Sui", icon: "/sui.svg" },
+  { label: "BSC", icon: "/sui.svg" },
+  { label: "Arrow", icon: "/sui.svg" },
+  { label: "Optimism", icon: "/optimism.svg" },
+  { label: "Fantom", icon: "/fantom.svg" },
 ];
 
 const extraChains = [
-  { label: 'Ethereum', icon: '/etherium.svg' },
-  { label: 'Solana', icon: '/solana.svg' },
-  { label: 'Arbitrum', icon: '/arbit.svg' },
-  { label: 'Base', icon: '/mantel.svg' },
-  { label: 'Sui', icon: '/sui.svg' },
-  { label: 'BSC', icon: '/mantel.svg' },
-  { label: 'Arrow', icon: '/mantel.svg' },
-  { label: 'Optimism', icon: '/mantel.svg' },
-  { label: 'Fantom', icon: '/fantom.svg' },
-  { label: 'Polygon', icon: '/mantel.svg' },
-  { label: 'Avalanche', icon: '/mantel.svg' },
-  { label: 'Celo', icon: '/mantel.svg' },
-  { label: 'Moonbeam', icon: '/moonbeam.svg' },
-  { label: 'Kava', icon: '/mantel.svg' },
-  { label: 'Scroll', icon: '/mantel.svg' },
-  { label: 'Mantle', icon: '/mantel.svg' },
-  { label: 'X Layer', icon: '/mantel.svg' },
-  { label: 'Blast', icon: '/mantel.svg' },
-  { label: 'Aptos', icon: '/mantel.svg' }
+  { label: "Ethereum", icon: "/etherium.svg" },
+  { label: "Solana", icon: "/solana.svg" },
+  { label: "Arbitrum", icon: "/arbit.svg" },
+  { label: "Base", icon: "/mantel.svg" },
+  { label: "Sui", icon: "/sui.svg" },
+  { label: "BSC", icon: "/mantel.svg" },
+  { label: "Arrow", icon: "/mantel.svg" },
+  { label: "Optimism", icon: "/mantel.svg" },
+  { label: "Fantom", icon: "/fantom.svg" },
+  { label: "Polygon", icon: "/mantel.svg" },
+  { label: "Avalanche", icon: "/mantel.svg" },
+  { label: "Celo", icon: "/mantel.svg" },
+  { label: "Moonbeam", icon: "/moonbeam.svg" },
+  { label: "Kava", icon: "/mantel.svg" },
+  { label: "Scroll", icon: "/mantel.svg" },
+  { label: "Mantle", icon: "/mantel.svg" },
+  { label: "X Layer", icon: "/mantel.svg" },
+  { label: "Blast", icon: "/mantel.svg" },
+  { label: "Aptos", icon: "/mantel.svg" },
 ];
 
-const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardData, setShowPools }) => {
-
-  const [selectedChain, setSelectedChain] = useState<string>('All');
+const ChainSelect: React.FC<ChainSelectProps> = ({
+  setShowChainSelect,
+  setCardData,
+  setShowPools,
+}) => {
+  const [selectedChain, setSelectedChain] = useState<string>("All");
   const [showExtraChains, setShowExtraChains] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [yieldData, setYieldData] = useState<YieldPool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -88,12 +91,14 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
     const fetchYieldData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get<YieldApiResponse>('https://yields.llama.fi/pools');
+        const response = await axios.get<YieldApiResponse>(
+          "https://yields.llama.fi/pools"
+        );
         setYieldData(response.data.data);
         setError(null);
       } catch (error) {
-        setError('Failed to fetch yield data');
-        console.error('Error fetching yield data:', error);
+        setError("Failed to fetch yield data");
+        console.error("Error fetching yield data:", error);
       } finally {
         setLoading(false);
       }
@@ -103,9 +108,11 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
   }, []);
 
   const filteredTokens = React.useMemo(() => {
-    return yieldData.filter(pool => {
-      const matchesChain = selectedChain === 'All' || pool.chain.toLowerCase() === selectedChain.toLowerCase();
-      const matchesSearch = 
+    return yieldData.filter((pool) => {
+      const matchesChain =
+        selectedChain === "All" ||
+        pool.chain.toLowerCase() === selectedChain.toLowerCase();
+      const matchesSearch =
         pool.symbol.toLowerCase().includes(searchQuery.toLowerCase()) ||
         pool.project.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesChain && matchesSearch;
@@ -128,17 +135,17 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
       apy: pool.apy,
       volumeUsd7d: pool.volumeUsd7d,
       apyMean30D: pool.apyMean30D,
-      chain: pool.chain
+      chain: pool.chain,
     });
     setShowChainSelect(false);
-    setShowPools(true)
+    setShowPools(true);
   };
 
   return (
     <div className="w-full max-w-xl bg-white rounded-3xl p-4 shadow-lg">
       <div className="flex items-center mb-6">
-        <ChevronLeft 
-          onClick={() => setShowChainSelect(false)} 
+        <ChevronLeft
+          onClick={() => setShowChainSelect(false)}
           className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
         />
         <span className="text-xl font-semibold ml-4">Swap Source</span>
@@ -159,14 +166,14 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
               }}
               className={`flex items-center justify-center w-12 h-12 rounded-full 
                 transition-all duration-200 hover:bg-gray-50
-                ${selectedChain === chain.label ? 'ring-2 ring-blue-500' : ''}
-                ${index === chains.length - 1 ? 'text-blue-500' : ''}
-                ${chain.label === 'All' ? 'bg-gray-100' : ''}`}
+                ${selectedChain === chain.label ? "ring-2 ring-blue-500" : ""}
+                ${index === chains.length - 1 ? "text-blue-500" : ""}
+                ${chain.label === "All" ? "bg-gray-100" : ""}`}
             >
               {index === chains.length - 1 ? (
                 <span className="text-blue-500 text-xs">More</span>
               ) : (
-                  <Image src={chain.icon} height={20} width={20}/>
+                <Image src={chain.icon} alt="" height={20} width={20} />
               )}
             </button>
           ))}
@@ -177,7 +184,7 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
             <div className="bg-white rounded-2xl p-4 w-96 max-h-[80vh]">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">All Chains</h3>
-                <button 
+                <button
                   onClick={() => setShowExtraChains(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
@@ -195,7 +202,8 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
                     className="flex flex-col items-center p-2 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <span className="text-2xl mb-1">
-                      <Image width={20} height={20} src={chain.icon}/></span>
+                      <Image width={20} alt="" height={20} src={chain.icon} />
+                    </span>
                     <span className="text-xs">{chain.label}</span>
                   </button>
                 ))}
@@ -227,15 +235,17 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
         ) : (
           <div className="max-h-[300px] overflow-y-auto pr-2">
             {filteredTokens.map((pool, index) => (
-              <div 
+              <div
                 key={pool.pool}
-                onClick={() => handleCards(pool)} 
+                onClick={() => handleCards(pool)}
                 className="cursor-pointer"
               >
                 <div className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg transition-colors">
                   <div className="flex items-center">
                     <div className="mr-3 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-semibold">{pool.symbol.slice(0, 2)}</span>
+                      <span className="text-sm font-semibold">
+                        {pool.symbol.slice(0, 2)}
+                      </span>
                     </div>
                     <div>
                       <div className="flex items-center">
@@ -244,12 +254,18 @@ const ChainSelect: React.FC<ChainSelectProps> = ({ setShowChainSelect, setCardDa
                           {pool.chain}
                         </span>
                       </div>
-                      <span className="text-sm text-gray-500">{pool.project}</span>
+                      <span className="text-sm text-gray-500">
+                        {pool.project}
+                      </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-medium text-gray-900">{formatTVL(pool.tvlUsd)}</div>
-                    <div className="text-sm text-gray-500">{pool.apy.toFixed(2)}% APY</div>
+                    <div className="font-medium text-gray-900">
+                      {formatTVL(pool.tvlUsd)}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {pool.apy.toFixed(2)}% APY
+                    </div>
                   </div>
                 </div>
                 {index < filteredTokens.length - 1 && (

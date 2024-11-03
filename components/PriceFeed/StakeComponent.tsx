@@ -1,11 +1,10 @@
-import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import PoolCard from './PoolCard';
-import ChainSelect from './ChainSelect';
-import ChainData from './ChainData';
-import TvlChart from './PoolChart';
-import { useRouter } from 'next/navigation';
-import { ChevronLeft } from 'lucide-react';
+import React from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import PoolCard from "./PoolCard";
+import ChainSelect from "./ChainSelect";
+import TvlChart from "./PoolChart";
+import { useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 
 interface CardData {
   pool: string;
@@ -19,14 +18,12 @@ interface CardData {
 }
 
 export const StakeComponent = () => {
-  
   const [showChainSelect, setShowChainSelect] = React.useState<boolean>(true);
   const [showData, setShowData] = React.useState<boolean>(false);
   const [showPools, setShowPools] = React.useState<boolean>(false);
   const [cardData, setCardData] = React.useState<CardData | null>(null);
-  const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleManage = () => {
     setShowData(true);
@@ -44,33 +41,44 @@ export const StakeComponent = () => {
   return (
     <>
       {showData && <TvlChart poolId={cardData.pool} />}
-      
+
       {showChainSelect && (
-        <ChainSelect 
-          setShowChainSelect={setShowChainSelect} 
-          setCardData={setCardData} 
+        <ChainSelect
+          setShowChainSelect={setShowChainSelect}
+          setCardData={setCardData}
           setShowPools={setShowPools}
         />
       )}
-      
+
       {showPools && (
         <Card className="w-full max-w-4xl">
-
           <CardHeader>
-          <ChevronLeft 
-          onClick={() => {setShowChainSelect(true)
-            setShowPools(false)}
-          } 
-          className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
-        />
+            <ChevronLeft
+              onClick={() => {
+                setShowChainSelect(true);
+                setShowPools(false);
+              }}
+              className="w-6 h-6 text-black cursor-pointer hover:scale-105 transition-transform"
+            />
 
-            <CardTitle className="font-bold text-2xl">Selected pool (?)</CardTitle>
+            <CardTitle className="font-bold text-2xl">
+              Selected pool (?)
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <button className='min-w-[32rem] font-bold text-2xl hover:bg-gray-200 p-4 text-center transition-colors duration-300 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 rounded-xl shadow-xl border border-gray-300 ease-in-out ' onClick={()=>(router.push(`https://defillama.com/yields/pool/${cardData.pool}`))}>Invest</button> 
+                  <button
+                    className="min-w-[32rem] font-bold text-2xl hover:bg-gray-200 p-4 text-center transition-colors duration-300 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 rounded-xl shadow-xl border border-gray-300 ease-in-out "
+                    onClick={() =>
+                      router.push(
+                        `https://defillama.com/yields/pool/${cardData.pool}`
+                      )
+                    }
+                  >
+                    Invest
+                  </button>
                 </div>
               </div>
               <div className="flex items-center justify-between">
