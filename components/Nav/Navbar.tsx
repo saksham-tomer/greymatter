@@ -134,8 +134,11 @@ const Navbar = () => {
               ))}
             </div>
           </div>
+         
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex md:flex-row md:gap-4 md:items-center md:justify-center">
+          <WalletButton/>
+
             {renderAuthButton()}
           </div>
 

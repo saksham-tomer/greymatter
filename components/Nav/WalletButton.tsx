@@ -72,7 +72,7 @@ export function WalletButton() {
       <div className="relative">
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-gray-700 to-neutral-800 rounded-lg text-white hover:from-gray-800 hover:to-neutral-900 transition-all duration-200 shadow-lg hover:shadow-xl"
+          className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-gray-700 to-neutral-800 rounded-lg text-white hover:from-gray-800 hover:to-neutral-900 transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           <CheckCircle2 className="h-5 w-5" />
           <span>{shortenAddress(publicKey.toString())}</span>
@@ -135,7 +135,7 @@ export function WalletButton() {
   return (
     <button
       onClick={() => setVisible(true)}
-      className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-gray-700 to-neutral-800  rounded-lg text-white hover:from-gray-800 hover:to-neutral-900  transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+      className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-gray-700 to-neutral-800  rounded-lg text-white hover:from-gray-800 hover:to-neutral-900  transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
     >
       <WalletIcon className="h-5 w-5" />
       <span>Connect Wallet</span>
