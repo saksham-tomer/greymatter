@@ -2,7 +2,7 @@
 
 The intelligent cross-chain DeFi operations platform that makes complex blockchain interactions simple and efficient.
 
-![GreyMatter Banner]![image](https://github.com/user-attachments/assets/6b188010-6641-40ec-a96a-eba1f862992b)
+![image](https://github.com/user-attachments/assets/6b188010-6641-40ec-a96a-eba1f862992b)
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
