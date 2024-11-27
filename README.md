@@ -49,7 +49,7 @@ To create a borderless DeFi ecosystem where users can seamlessly interact with m
   - zkSync Era
 
 - **Bridge Features**:
-  - Wormhole-powered secure message passing
+  - SOON-powered secure message passing
   - Automated bridging path optimization
   - MEV protection
   - Bridge aggregation for best rates
@@ -97,7 +97,7 @@ graph TD
     B --> C[Cross-Chain Engine]
     B --> D[Yield Aggregator]
     B --> E[AI Module]
-    C --> F[Wormhole Bridge]
+    C --> F[SOON Bridge]
     D --> G[DeFi Protocols]
     E --> H[User Support]
 ```

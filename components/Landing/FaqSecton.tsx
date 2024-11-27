@@ -10,7 +10,7 @@ const FAQSection = () => {
   const faqItems = [
     {
       title: "What is Grey Matter?",
-      content:"Grey Matter is a next-gen cross-chain yield aggregator, leveraging Wormhole to unlock the best yield opportunities in the DeFi space. Maximize your returns with the power of seamless cross-chain integration.",
+      content:"Grey Matter is a next-gen cross-chain yield aggregator, leveraging SOON to unlock the best yield opportunities in the DeFi space. Maximize your returns with the power of seamless cross-chain integration.",
     },
     {
       title: "How do I start using Grey Matter?",

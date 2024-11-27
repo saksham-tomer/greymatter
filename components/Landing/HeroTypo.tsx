@@ -29,7 +29,7 @@ export function HeroTypo() {
     </div>
     <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-neutral-400 lg:text-4xl to-neutral-600 text-lg mt-6 md:text-3xl">Unleashing the power of cross-chain yield</p>
    <Highlight className=" font-bold text-lg text-neutral-400 p-2 mt-2 md:text-3xl lg:text-4xl">
-   aggregation through wormhole.
+   aggregation through SOON.
    </Highlight>  
    </>
   );

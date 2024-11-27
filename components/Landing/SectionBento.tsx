@@ -19,7 +19,7 @@ const features = [
   },
   {
     Icon: CalendarIcon,
-    name: "Backed by Wormhole",
+    name: "Backed by SOON",
     description: "our platform employs multi-layer encryption to safeguard your assets across blockchains. Move funds securely without compromise. Ecosystem and Partnerships",
     href: "#",
     cta: "Learn more",

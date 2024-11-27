@@ -25,7 +25,7 @@ export function InfiniteMovingCardsDemo() {
         </h3>
       </motion.button>
       <p className="bg-clip-text text-transparent bg-gradient-to-tr from-neutral-300 to-neutral-500 font-semibold text-2xl ">
-        Leading the Way in Crypto Trust With Wormhole
+        Leading the Way in Crypto Trust With SOON
       </p>
       <InfiniteMovingCards
         items={testimonials}

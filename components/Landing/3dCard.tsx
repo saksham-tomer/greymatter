@@ -17,7 +17,7 @@ export function ThreeDCardDemo() {
           translateZ="60"
           className="text-neutral-300 text-sm max-w-sm mt-2 "
         >
-        Powered By Wormhole for cross-chain token transfer & swaps
+        Powered By SOON for cross-chain token transfer & swaps
         </CardItem>
         <CardItem translateZ="100" className="w-full mt-4">
           <Image
