@@ -10,7 +10,7 @@ const ModernChatPopup = () => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
-    { id: 1, text: 'Hi there! How can I assist you today?', sender: 'bot' }
+    { id: 1, text: 'Hi there! here to help you with Soon queries?', sender: 'bot' }
   ]);
   const [isGenerating, setIsGenerating] = useState(false);
   const chatContainerRef = useRef(null);
