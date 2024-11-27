@@ -59,7 +59,7 @@ const extraChains = [
   { label: "Arbitrum", icon: "/arbit.svg" },
   { label: "Base", icon: "/base.png" },
   { label: "Sui", icon: "/sui.svg" },
-  { label: "BSC", icon: "/mantel.svg" },
+  { label: "BSC", icon: "/bsc.svg" },
   { label: "Arrow", icon: "/mantel.svg" },
   { label: "Optimism", icon: "/mantel.svg" },
   { label: "Fantom", icon: "/fantom.svg" },
@@ -68,10 +68,10 @@ const extraChains = [
   { label: "Celo", icon: "/mantel.svg" },
   { label: "Moonbeam", icon: "/moonbeam.svg" },
   { label: "Kava", icon: "/kava.png" },
-  { label: "Scroll", icon: "/mantel.svg" },
+  { label: "Scroll", icon: "/scroll.png" },
   { label: "Mantle", icon: "/mantel.svg" },
-  { label: "X Layer", icon: "/mantel.svg" },
-  { label: "Blast", icon: "/mantel.svg" },
+  { label: "X Layer", icon: "/xlayer.png" },
+  { label: "Blast", icon: "/blast.png" },
   { label: "Aptos", icon: "/aptos.svg" },
 ];
 
