@@ -48,7 +48,6 @@ const chains = [
   { label: "Base", icon: "/optimism.svg" },
   { label: "Sui", icon: "/sui.svg" },
   { label: "BSC", icon: "/bsc.svg" },
-  { label: "Arrow", icon: "/sui.svg" },
   { label: "Optimism", icon: "/optimism.svg" },
   { label: "Fantom", icon: "/fantom.svg" },
 ];
@@ -60,7 +59,6 @@ const extraChains = [
   { label: "Base", icon: "/base.png" },
   { label: "Sui", icon: "/sui.svg" },
   { label: "BSC", icon: "/bsc.svg" },
-  { label: "Arrow", icon: "/mantel.svg" },
   { label: "Optimism", icon: "/optimism.svg" },
   { label: "Fantom", icon: "/fantom.svg" },
   { label: "Polygon", icon: "/polygon.png" },
