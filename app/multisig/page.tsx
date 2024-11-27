@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 // Assuming you've deployed the program and have the IDL
-import idl from '../../blockchain/multisig/target/idl/multisig_wallet.json'; // You'll need to export the IDL from your Anchor project
+import idl from './multisig_wallet.json'; // You'll need to export the IDL from your Anchor project
 import { Copy, PlusCircle, Users } from 'lucide-react';
 
 const PROGRAM_ID = new PublicKey('3zXKff5skVoTMLRhPAPM6TDfzrsLtZwozsYabjxdqTU9');

@@ -1,0 +1,332 @@
+{
+  "address": "3zXKff5skVoTMLRhPAPM6TDfzrsLtZwozsYabjxdqTU9",
+  "metadata": {
+    "name": "multisig_wallet",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "approve",
+      "discriminator": [
+        69,
+        74,
+        217,
+        36,
+        115,
+        117,
+        97,
+        76
+      ],
+      "accounts": [
+        {
+          "name": "multisig"
+        },
+        {
+          "name": "transaction",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "change_owners",
+      "discriminator": [
+        230,
+        164,
+        252,
+        76,
+        200,
+        206,
+        32,
+        21
+      ],
+      "accounts": [
+        {
+          "name": "multisig",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owners",
+          "type": {
+            "vec": "pubkey"
+          }
+        },
+        {
+          "name": "new_threshold",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_transaction",
+      "discriminator": [
+        227,
+        193,
+        53,
+        239,
+        55,
+        126,
+        112,
+        105
+      ],
+      "accounts": [
+        {
+          "name": "multisig"
+        },
+        {
+          "name": "transaction",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "proposer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "program_id",
+          "type": "pubkey"
+        },
+        {
+          "name": "accounts",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "TransactionAccount"
+              }
+            }
+          }
+        },
+        {
+          "name": "data",
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "name": "execute_transaction",
+      "discriminator": [
+        231,
+        173,
+        49,
+        91,
+        235,
+        24,
+        68,
+        19
+      ],
+      "accounts": [
+        {
+          "name": "multisig"
+        },
+        {
+          "name": "transaction",
+          "writable": true
+        },
+        {
+          "name": "executor",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "multisig",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "owners",
+          "type": {
+            "vec": "pubkey"
+          }
+        },
+        {
+          "name": "threshold",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Multisig",
+      "discriminator": [
+        224,
+        116,
+        121,
+        186,
+        68,
+        161,
+        79,
+        236
+      ]
+    },
+    {
+      "name": "Transaction",
+      "discriminator": [
+        11,
+        24,
+        174,
+        129,
+        203,
+        117,
+        242,
+        23
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidThreshold",
+      "msg": "The given threshold is invalid"
+    },
+    {
+      "code": 6001,
+      "name": "NoOwners",
+      "msg": "Owners list cannot be empty"
+    },
+    {
+      "code": 6002,
+      "name": "NotEnoughSignatures",
+      "msg": "Not enough signatures to execute the transaction"
+    },
+    {
+      "code": 6003,
+      "name": "AlreadyExecuted",
+      "msg": "Transaction has already been executed"
+    },
+    {
+      "code": 6004,
+      "name": "NotAnOwner",
+      "msg": "Signer is not an owner"
+    }
+  ],
+  "types": [
+    {
+      "name": "Multisig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owners",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "threshold",
+            "type": "u64"
+          },
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "owner_sequence_number",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Transaction",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "program_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "accounts",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "TransactionAccount"
+                }
+              }
+            }
+          },
+          {
+            "name": "data",
+            "type": "bytes"
+          },
+          {
+            "name": "signers",
+            "type": {
+              "vec": "bool"
+            }
+          },
+          {
+            "name": "did_execute",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TransactionAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_signer",
+            "type": "bool"
+          },
+          {
+            "name": "is_writable",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ]
+}
