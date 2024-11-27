@@ -85,6 +85,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Stake", href: "/stake" },
+    {name: "MulitSig", href: "/multisig"},
     { name: "Features", href: "/" },
     { name: "FAQ", href: "https://x.com/SakshamDevDose" },
   ];
