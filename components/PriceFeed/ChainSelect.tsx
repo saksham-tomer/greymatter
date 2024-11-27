@@ -45,7 +45,7 @@ const chains = [
   { label: "Ethereum", icon: "/etherium.svg" },
   { label: "Solana", icon: "/solana.svg" },
   { label: "Arbitrum", icon: "/arbit.svg" },
-  { label: "Base", icon: "/optimism.svg" },
+  { label: "Base", icon: "/base.png" },
   { label: "Sui", icon: "/sui.svg" },
   { label: "BSC", icon: "/bsc.svg" },
   { label: "Optimism", icon: "/optimism.svg" },
