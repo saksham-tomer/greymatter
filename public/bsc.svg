@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" id="binance">
+  <defs>
+    <linearGradient id="a" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffb508"></stop>
+      <stop offset="1" stop-color="#fc2a02"></stop>
+    </linearGradient>
+  </defs>
+  <g transform="translate(-14960 -4001)">
+    <circle cx="256" cy="256" r="256" fill="url(#a)" transform="translate(14960 4001)"></circle>
+    <g fill="#fff">
+      <path d="m15150.252 4229.828 65.555-65.528 65.582 65.582 38.123-38.15L15215.807 4088l-103.7 103.7Z"></path>
+      <path d="m15047 4256.781 38.123-38.15 38.15 38.15-38.15 38.128Z"></path>
+      <path d="m15150.252 4283.709 65.556 65.556 65.582-65.583 38.15 38.1-103.706 103.727-103.734-103.652Z"></path>
+      <path d="m15308.263 4256.781 38.123-38.15 38.15 38.123-38.15 38.177Z"></path>
+      <path d="m15254.491 4256.755-38.683-38.71-28.606 28.606-3.306 3.279-6.771 6.771 38.683 38.656 38.683-38.576Z"></path>
+    </g>
+  </g>
+</svg>
