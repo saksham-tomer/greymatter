@@ -70,7 +70,7 @@ const extraChains = [
   { label: "Mantle", icon: "/mantel.svg" },
   { label: "X Layer", icon: "/xlayer.png" },
   { label: "Blast", icon: "/blast.png" },
-  { label: "Aptos", icon: "/aptos.svg" },
+  { label: "Aptos", icon: "/aptos.png" },
 ];
 
 const ChainSelect: React.FC<ChainSelectProps> = ({
