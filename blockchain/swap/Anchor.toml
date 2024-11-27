@@ -11,7 +11,7 @@ swap = "5y7XhkgrZiPzNp1Q5FPp3BE5XyKVKeNXFWVziP5vwY18"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
+cluster = "https://rpc.devnet.soo.network/rpc"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
