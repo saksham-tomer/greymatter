@@ -11,7 +11,7 @@ multisig = "3zXKff5skVoTMLRhPAPM6TDfzrsLtZwozsYabjxdqTU9"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "https://api.devnet.solana.com"
+cluster = "https://rpc.testnet.soo.network/rpc"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

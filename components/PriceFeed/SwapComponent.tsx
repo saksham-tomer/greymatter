@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Connection, VersionedTransaction } from '@solana/web3.js';
 import { 
   ArrowUpDown, Settings, Info, ChevronDown, 
   Search, X, ExternalLink, AlertCircle, Loader
@@ -24,43 +26,38 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-// Mock token list with more details
-const mockTokens = [
+const SOLANA_RPC = 'https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE';
+
+const tokens = [
   { 
     symbol: 'SOL', 
     name: 'Solana', 
+    mint: 'So11111111111111111111111111111111111111112',
+    decimals: 9,
     balance: '12.5', 
     price: 125.45,
-    change24h: 2.5,
-    volume24h: '125M',
-    liquidity: '250M',
-    address: '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU'
   },
   { 
     symbol: 'USDC', 
     name: 'USD Coin', 
+    mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+    decimals: 6,
     balance: '1250.00', 
     price: 1.00,
-    change24h: 0.01,
-    volume24h: '500M',
-    liquidity: '1B',
-    address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
   },
   { 
     symbol: 'BONK', 
     name: 'Bonk', 
+    mint: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
+    decimals: 5,
     balance: '1250000', 
     price: 0.00001,
-    change24h: -5.2,
-    volume24h: '25M',
-    liquidity: '50M',
-    address: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263'
   },
 ];
 
 const SwapComponent = () => {
-  const [tokenIn, setTokenIn] = useState(mockTokens[0]);
-  const [tokenOut, setTokenOut] = useState(mockTokens[1]);
+  const [tokenIn, setTokenIn] = useState(tokens[0]);
+  const [tokenOut, setTokenOut] = useState(tokens[1]);
   const [amountIn, setAmountIn] = useState('');
   const [route, setRoute] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -71,24 +68,36 @@ const SwapComponent = () => {
   const [slippage, setSlippage] = useState('0.5');
   const [showSettings, setShowSettings] = useState(false);
 
-  // Simulated Jupiter API call
+  const wallet = useWallet();
+  const connection = new Connection(SOLANA_RPC);
+
   const fetchRoute = async (tokenIn, tokenOut, amount) => {
     setLoading(true);
     setError(null);
     
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
       if (amount <= 0) throw new Error('Amount must be greater than 0');
+
+      const response = await fetch(
+        `https://quote-api.jup.ag/v6/quote?inputMint=${tokenIn.mint}&outputMint=${tokenOut.mint}&amount=${amount * Math.pow(10, tokenIn.decimals)}&slippage=${parseFloat(slippage) / 100}`
+      );
+      
+      const quoteResponse = await response.json();
+
+      if (!quoteResponse || !quoteResponse.outAmount) {
+        throw new Error('Unable to fetch route');
+      }
+
+      const outAmountNumber = Number(quoteResponse.outAmount) / Math.pow(10, tokenOut.decimals);
       
       const route = {
-        priceImpact: -0.15,
-        routeInfo: 'Jupiter → Orca → Raydium',
+        priceImpact: (quoteResponse.priceImpactPct * 100).toFixed(2),
+        routeInfo: quoteResponse.routePlan.map(plan => plan.swapInfo.label).join(' → '),
         estimatedTime: '< 30 seconds',
-        fee: 0.0005 * amount,
-        minReceived: amount * (1 - parseFloat(slippage) / 100),
-        marketPrice: amount * (tokenOut.price / tokenIn.price),
+        fee: 0, // Jupiter doesn't directly provide network fee
+        minReceived: outAmountNumber,
+        marketPrice: outAmountNumber / amount,
+        quoteResponse,
       };
       
       setRoute(route);
@@ -97,6 +106,46 @@ const SwapComponent = () => {
       setRoute(null);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const signAndSendTransaction = async () => {
+    if (!wallet.connected || !route) return;
+
+    try {
+      const response = await fetch('https://quote-api.jup.ag/v6/swap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          quoteResponse: route.quoteResponse,
+          userPublicKey: wallet.publicKey?.toString(),
+          wrapAndUnwrapSol: true,
+        }),
+      });
+
+      const { swapTransaction } = await response.json();
+
+      const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+      const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+      const signedTransaction = await wallet.signTransaction(transaction);
+
+      const rawTransaction = signedTransaction.serialize();
+      const txid = await connection.sendRawTransaction(rawTransaction, {
+        skipPreflight: true,
+        maxRetries: 2,
+      });
+
+      const latestBlockHash = await connection.getLatestBlockhash();
+      await connection.confirmTransaction({
+        blockhash: latestBlockHash.blockhash,
+        lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+        signature: txid
+      }, 'confirmed');
+      
+      console.log(`Swap successful: https://solscan.io/tx/${txid}`);
+    } catch (error) {
+      console.error('Swap failed:', error);
+      setError('Swap transaction failed');
     }
   };
 
@@ -115,11 +164,10 @@ const SwapComponent = () => {
     setAmountIn('');
   };
 
-  const filteredTokens = mockTokens.filter(token => 
+  const filteredTokens = tokens.filter(token => 
     token.symbol.toLowerCase().includes(searchQuery.toLowerCase()) ||
     token.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   const TokenSelector = ({ token, onChange, label }) => (
     <div className="rounded-lg bg-gray-900 p-4 hover:bg-gray-800 transition-colors">
       <div className="text-sm text-gray-400 mb-2">{label}</div>
@@ -241,8 +289,13 @@ const SwapComponent = () => {
     </Dialog>
   );
 
+
+  // Rest of the component remains the same as the previous implementation
+  // (TokenSelector, TokenSelectModal, SettingsModal, etc. components remain unchanged)
+  
   return (
     <Card className="w-full max-w-md mx-auto bg-gray-900 border-gray-800 shadow-xl text-white">
+      {/* Previous component's return JSX remains the same */}
       <CardHeader className="flex flex-row items-center justify-between">
         <h2 className="text-xl font-bold">Swap</h2>
         <Button 
@@ -324,12 +377,16 @@ const SwapComponent = () => {
         )}
       </CardContent>
 
+
       <CardFooter>
         <Button 
           className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700"
-          disabled={!amountIn || !route || loading}
+          disabled={!amountIn || !route || loading || !wallet.connected}
+          onClick={signAndSendTransaction}
         >
-          {loading ? (
+          {!wallet.connected ? (
+            'Connect Wallet'
+          ) : loading ? (
             <Loader className="h-5 w-5 animate-spin" />
           ) : error ? (
             'Invalid Swap'
@@ -340,9 +397,10 @@ const SwapComponent = () => {
           )}
         </Button>
       </CardFooter>
-
       <TokenSelectModal />
       <SettingsModal />
+
+      {/* Existing modals */}
     </Card>
   );
 };
