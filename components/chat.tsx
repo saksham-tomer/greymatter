@@ -35,7 +35,7 @@ const ModernChatPopup = () => {
     try {
       const response = await axios({
         url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${
-          "AIzaSyAFbxx4LAR7KQaeCf0lJmiPd4nae2f60Nw"
+          "AIzaSyCCfPxT-3CYBmOnySJQAU6jt3dj9mjpVbg"
         }`,
         method: "post",
         data: {
