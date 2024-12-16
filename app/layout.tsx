@@ -6,6 +6,7 @@ import ChatPopup from "@/components/chat";
 import Footer from "@/components/Landing/Footer";
 import { SessionProvider } from "@/provider/provider";
 import { WalletProvider } from "@/components/Nav/Web3Wallet";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <SessionProvider>
         <WalletProvider>
+          <ToastContainer />
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >

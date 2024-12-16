@@ -1,0 +1,41 @@
+{
+  "version": "0.1.0",
+  "name": "oracle",
+  "instructions": [
+    {
+      "name": "initializeOracle",
+      "accounts": [
+        { "name": "oracleAccount", "isMut": true, "isSigner": true },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": [
+        { "name": "basePrice", "type": "u64" },
+        { "name": "baseApyBps", "type": "u16" }
+      ]
+    },
+    {
+      "name": "updateOracle",
+      "accounts": [
+        { "name": "oracleAccount", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": false, "isSigner": true }
+      ],
+      "args": [
+        { "name": "newPrice", "type": "u64" },
+        { "name": "newApyBps", "type": "u16" }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "OracleAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "basePrice", "type": "u64" },
+          { "name": "baseApyBps", "type": "u16" }
+        ]
+      }
+    }
+  ]
+}
