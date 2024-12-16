@@ -131,12 +131,34 @@ const PoolDashboard = ({ poolData }) => {
           History
         </button>
       </div>
+      <div className=" h-[200px] my-5 font-bold text-3xl flex">
+        <div className=" basis-[50%]"><h1>Earn from LP Liquiditypool</h1>
+        <br></br>
+        <h1 className=" text-xl">Liqudity pool and farms</h1>
+        <br></br>
+        <h1 className=" text-xl">Learn How | Legacy farm Page </h1>
+        </div>
+        <div className="basis-[50%]">
+          <div className="w-[600px]  cursor-pointer h-[200px] border-2  rounded-xl">
+            <h1 className=" mx-10  font-bold mt-5">Yeild Booster</h1>
+            <p className="  mx-10 mt-3 text-sm">Connect wallet to view booster</p>
+            <p className="  mx-10 text-sm">An active vecake staking position is required for <br></br></p>
+            <p className="  mx-10 text-sm mb-4"> activating farm yield boosters.</p>
+            <div className="  text-center my-3 ml-10 w-[450px] rounded-full h-[40px] bg-white text-black">
+      
+<p className="">Connect Wallet</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
 
       {/* Filters Row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
           <select
-            className="bg-gray-800 px-4 py-2 rounded-md focus:outline-none text-gray-200"
+            className="bg-gray-800 px-4 py-2  rounded-full focus:outline-none text-gray-200"
             onChange={(e) => console.log(e.target.value)}
           >
             <option>All Networks</option>
@@ -210,13 +232,13 @@ const PoolDashboard = ({ poolData }) => {
           className="w-full table-auto border-collapse"
         >
           <thead className="bg-gray-800">
-            {headerGroups.map((headerGroup) => (
-              <tr
+            {headerGroups.map((headerGroup,n) => (
+              <tr key={n}
                 {...headerGroup.getHeaderGroupProps()}
                 className="text-gray-400 text-sm"
               >
-                {headerGroup.headers.map((column) => (
-                  <th
+                {headerGroup.headers.map((column,n) => (
+                  <th key={n}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     className="px-4 py-3 text-left font-normal whitespace-nowrap"
                   >
